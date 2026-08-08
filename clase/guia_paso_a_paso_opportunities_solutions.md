@@ -169,4 +169,25 @@ flowchart TD
 
 ---
 
+## 6. Vista ArchiMate equivalente
+
+Este es el taller donde ArchiMate deja de ser "una notación más" y se vuelve la herramienta correcta para el trabajo: la capa de **Implementación y Migración** (ver la [Guía de Notación ArchiMate](https://github.com/CesarAVegaF312/AREM-ArchiMate/blob/main/guia_notacion_archimate.md)) tiene elementos diseñados exactamente para un análisis de brechas — **Plateau** (un estado estable de la arquitectura) y **Gap** (la diferencia entre dos plateaus).
+
+```mermaid
+flowchart LR
+    asis["📍 Plateau: AS-IS 2026\n(Balanceador único, BD centralizada)"]
+    gap(["⚠️ Gap: alta disponibilidad y latencia regional"])
+    tobe["📍 Plateau: TO-BE 2027\n(Balanceador redundante, BD particionada)"]
+
+    asis -->|"se compara con"| gap
+    gap -->|"se resuelve en"| tobe
+
+    classDef plateau fill:#ffcc99,color:#000,stroke:#cc6600;
+    class asis,gap,tobe plateau
+```
+
+La matriz de brechas del Paso 4 **es**, en el fondo, una lista de elementos `Gap`: cada fila conecta un `Plateau` AS-IS (lo diagnosticado en los Talleres 3-6) con un `Plateau` TO-BE (lo que este taller propone). Esos mismos `Gap` son los que el Taller 9 convierte en `Work Package` dentro del Plan de Implementación — la cadena completa en ArchiMate es: **Constraint/Requirement (Talleres 5-6) → Gap (este taller) → Work Package (Taller 9) → nuevo Plateau**.
+
+---
+
 _Esta guía hace parte del Taller 7 de Opportunities & Solutions — curso Arquitectura Empresarial, Universidad de La Sabana._
