@@ -8,7 +8,7 @@ Proponer la arquitectura objetivo (TO-BE) de Aplicaciones y de Tecnología del c
 
 ## 📘 Guía paso a paso
 
-Antes de proponer el TO-BE, revise la [**Guía Paso a Paso: Opportunities & Solutions**](clase/guia_paso_a_paso_opportunities_solutions.md). Incluye qué cuenta como una brecha válida en este taller, la metodología de 5 pasos (de brechas consolidadas a soluciones priorizadas), un ejemplo completo construido paso a paso sobre el AS-IS de RedExpress ya trabajado en los Talleres 3 y 4, y una tabla de errores comunes.
+Antes de proponer el TO-BE, revise la [**Guía Paso a Paso: Opportunities & Solutions**](clase/guia_paso_a_paso_opportunities_solutions.md). Incluye qué cuenta como una brecha válida en este taller, la metodología en 4 partes (Diagnóstico inicial → Propuesta de mejoras → Visualización TO-BE → Análisis de beneficios y riesgos, siguiendo la actividad oficial de mejora de arquitectura del curso), un ejemplo completo construido paso a paso sobre el AS-IS de RedExpress ya trabajado en los Talleres 3 y 4, y una tabla de errores comunes.
 
 ## 🚚 Caso base de referencia: RedExpress (continuación de los Talleres 3 y 4)
 
@@ -24,13 +24,12 @@ Este taller no introduce un cliente ficticio nuevo: retoma el C1/C2 de RedExpres
 
 Durante la clase se espera que el equipo:
 
-Siga la metodología de 5 pasos de la [guía paso a paso](clase/guia_paso_a_paso_opportunities_solutions.md) sobre el AS-IS de RedExpress:
+Siga la metodología en 4 partes de la [guía paso a paso](clase/guia_paso_a_paso_opportunities_solutions.md) sobre el AS-IS de RedExpress:
 
-1. Consolide los hallazgos del AS-IS (Talleres 3 y 4, y en su cliente real también 5 y 6).
-2. Defina el TO-BE de Aplicaciones extendiendo el C2 del Taller 3.
-3. Defina el TO-BE de Tecnología extendiendo el mapa del Taller 4.
-4. Construya la matriz de brechas (Gap Analysis): AS-IS vs TO-BE y beneficio esperado.
-5. Priorice las soluciones por esfuerzo e impacto, y valide con la [checklist de autoevaluación](clase/guia_paso_a_paso_opportunities_solutions.md#5-checklist-de-autoevaluación-antes-de-entregar).
+1. **Diagnóstico inicial**: consolide los hallazgos del AS-IS (Talleres 3 y 4, y en su cliente real también 5 y 6) respondiendo las tres preguntas orientadoras (fricción, problemas recurrentes, vulnerabilidades/riesgos).
+2. **Propuesta de mejoras**: haga una lluvia de ideas de al menos 6 mejoras y priorice 2-3 con justificación, distinguiendo quick wins de mejoras de mayor impacto o largo plazo.
+3. **Visualización TO-BE**: defina el TO-BE de Aplicaciones (extendiendo el C2 del Taller 3) y de Tecnología (extendiendo el mapa del Taller 4), señalando qué controles de seguridad del Taller 5 se integran.
+4. **Análisis de beneficios y riesgos**: construya la matriz de brechas (Gap Analysis) con el beneficio esperado de cada solución priorizada y contrástela con una tabla de riesgos/limitaciones de implementación, y valide con la [checklist de autoevaluación](clase/guia_paso_a_paso_opportunities_solutions.md#5-checklist-de-autoevaluación-antes-de-entregar).
 
 - Use draw.io o Astah UML para los diagramas TO-BE.
 - Reciba retroalimentación del docente y registre avances en `clase/notas.md` (use la [plantilla de notas](plantillas/plantilla_notas.md)).
@@ -42,9 +41,9 @@ Siga la metodología de 5 pasos de la [guía paso a paso](clase/guia_paso_a_paso
 Después de la clase, el equipo debe:
 
 - Consolidar las brechas técnicas (Talleres 3 y 4), de seguridad (Taller 5) y de cumplimiento (Taller 6) identificadas para su cliente real.
-- Proponer el TO-BE de Aplicaciones y de Tecnología del cliente, extendiendo sus propios entregables de los Talleres 3 y 4.
-- Construir la matriz de brechas priorizada en `entrega/matriz-brechas.xlsx`.
-- Redactar el informe en `entrega/informe.md` usando la [plantilla de informe del taller](plantillas/plantilla_informe_taller.md); explicar cada decisión de diseño del TO-BE y su trazabilidad a una brecha concreta.
+- Proponer el TO-BE de Aplicaciones y de Tecnología del cliente, extendiendo sus propios entregables de los Talleres 3 y 4, y guardar los diagramas como anexos en `entrega/to-be-aplicaciones-final.drawio` y `entrega/to-be-tecnologia-final.drawio`.
+- Construir la matriz de brechas priorizada en `entrega/matriz-brechas.xlsx` (también como anexo).
+- Redactar el documento único en `entrega/mejora-arquitectura.md` usando la [plantilla de mejora de arquitectura](plantillas/plantilla_mejora_arquitectura.md), siguiendo las 4 partes de la guía (Diagnóstico → Propuesta de mejoras → Visualización TO-BE → Beneficios y riesgos) y referenciando los anexos anteriores. Este es el equivalente en Markdown del documento oficial de la actividad (máx. 6 páginas + anexos); el equipo puede redactar aquí en Markdown y exportar a PDF con el nombre `EquipoX_Mejora_Arquitectura.pdf` para la entrega formal, si el docente lo pide aparte.
 - Investigar patrones de solución reales para brechas similares en el sector del cliente, y registrar las fuentes en `entrega/referencias.md` con la [plantilla de referencias](plantillas/plantilla_referencias.md).
 
 ---
@@ -55,16 +54,17 @@ Después de la clase, el equipo debe:
 taller-07-opportunities-solutions/
 ├── README.md
 ├── clase/
-│   ├── guia_paso_a_paso_opportunities_solutions.md   # Qué es una brecha, metodología de 5 pasos y ejemplo guiado
+│   ├── guia_paso_a_paso_opportunities_solutions.md   # Qué es una brecha, metodología en 4 partes y ejemplo guiado
 │   ├── to-be-borrador.drawio
 │   └── notas.md                                      # Ver plantillas/plantilla_notas.md
 ├── entrega/
-│   ├── to-be-aplicaciones-final.drawio
-│   ├── to-be-tecnologia-final.drawio
-│   ├── matriz-brechas.xlsx
-│   ├── informe.md                                    # Ver plantillas/plantilla_informe_taller.md
-│   └── referencias.md                                # Ver plantillas/plantilla_referencias.md
+│   ├── to-be-aplicaciones-final.drawio                # Anexo: referenciado desde mejora-arquitectura.md
+│   ├── to-be-tecnologia-final.drawio                  # Anexo: referenciado desde mejora-arquitectura.md
+│   ├── matriz-brechas.xlsx                            # Anexo: referenciado desde mejora-arquitectura.md
+│   ├── mejora-arquitectura.md                         # Ver plantillas/plantilla_mejora_arquitectura.md — exportar a PDF como EquipoX_Mejora_Arquitectura.pdf
+│   └── referencias.md                                 # Ver plantillas/plantilla_referencias.md
 └── plantillas/
+    ├── plantilla_mejora_arquitectura.md               # Plantilla principal de entrega de este taller
     ├── plantilla_informe_taller.md
     ├── plantilla_notas.md
     └── plantilla_referencias.md
@@ -78,22 +78,24 @@ Antes de entregar, compare su TO-BE y su matriz contra los errores más frecuent
 
 ## 📤 Entregables
 
-- Modelo TO-BE de Aplicaciones (extensión del C2 del Taller 3)
-- Modelo TO-BE de Tecnología (extensión del mapa del Taller 4)
-- Matriz de brechas (Gap Analysis) priorizada
-- Informe técnico (`informe.md`)
-- Referencias e investigación complementaria
+- Documento único de mejora de arquitectura (`entrega/mejora-arquitectura.md`), máx. 6 páginas + anexos, siguiendo las 4 partes: Diagnóstico inicial, Propuesta de mejoras, Visualización TO-BE, Análisis de beneficios y riesgos.
+- Anexos: Modelo TO-BE de Aplicaciones (extensión del C2 del Taller 3), Modelo TO-BE de Tecnología (extensión del mapa del Taller 4) y Matriz de brechas (Gap Analysis) priorizada.
+- Referencias e investigación complementaria.
+- Para la entrega formal ante el docente, exportar el documento como PDF con nombre `EquipoX_Mejora_Arquitectura.pdf`.
 
 ---
 
 ## 📊 Rúbrica de Evaluación
 
-| Criterio                              | Excelente (5)                                                              | Aceptable (3) / Insuficiente (1–2)                         |
-|----------------------------------------|-------------------------------------------------------------------------------|----------------------------------------------------------------|
-| Consolidación de brechas               | Reúne brechas técnicas, de seguridad y normativas de talleres previos, bien trazadas | Brechas incompletas o inventadas sin base en talleres previos |
-| TO-BE de Aplicaciones y Tecnología     | Extiende coherentemente el C2 y el mapa de infraestructura ya construidos     | TO-BE desconectado del AS-IS o genérico                        |
-| Matriz de brechas y priorización       | Gap analysis claro, con beneficio esperado y prioridad justificada           | Priorización arbitraria o sin justificación                    |
-| Investigación complementaria           | Referencias a patrones de solución reales del sector del cliente             | Sin fuentes o poco relevantes                                  |
+Pesos y criterios oficiales de la actividad de mejora de arquitectura del curso:
+
+| Criterio                                      | Peso | Excelente (5)                                                                 | Aceptable (3) / Insuficiente (1–2)                                   |
+|------------------------------------------------|------|--------------------------------------------------------------------------------|------------------------------------------------------------------------|
+| Diagnóstico claro de problemas y riesgos        | 20%  | Resume con evidencia la fricción, los problemas recurrentes y las vulnerabilidades ya diagnosticadas en los Talleres 3-6, sin inventar hallazgos nuevos | Diagnóstico genérico, sin trazabilidad a los talleres previos, o incompleto |
+| Generación y priorización de ideas de mejora    | 25%  | Presenta al menos 6 ideas variadas (proceso, tecnología, seguridad) y prioriza 2-3 con justificación clara, distinguiendo quick wins de mejoras de largo plazo | Menos de 6 ideas, ideas repetidas o triviales, o priorización sin justificación |
+| Modelado TO-BE coherente y visualmente claro    | 25%  | El TO-BE extiende coherentemente el C2/mapa de infraestructura del AS-IS, incluye el proceso mejorado y señala los controles de seguridad integrados | TO-BE desconectado del AS-IS, sin controles de seguridad, o difícil de leer |
+| Justificación de beneficios y riesgos           | 20%  | Contrasta beneficios de negocio y tecnológicos/de seguridad con riesgos, limitaciones y dependencias reales de implementación | Solo lista beneficios sin riesgos, o riesgos genéricos sin relación con las soluciones propuestas |
+| Calidad de redacción y presentación             | 10%  | Documento único, máximo 6 páginas + anexos, bien redactado y fácil de seguir  | Excede el límite de páginas, está desorganizado o tiene errores de redacción |
 
 ---
 
