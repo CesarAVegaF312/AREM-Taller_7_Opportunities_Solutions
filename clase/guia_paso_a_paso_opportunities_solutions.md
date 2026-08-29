@@ -73,6 +73,8 @@ Esto se traduce en la misma lista de riesgos/brechas ya diagnosticados en la gu�
 
 > **En su cliente real**, si una idea de proceso responde a un problema recurrente detectado en entrevistas (pregunta orientadora 2 del Diagnóstico), sí debe priorizarla aquí con la misma justificación — no descarte una mejora solo por ser "de proceso" en vez de técnica.
 
+> **Si alguna idea es un agente de IA** (como la #7, un chatbot que responde consultas), no la modele como una caja negra: use el [patrón de sistemas agénticos](https://github.com/CesarAVegaF312/AREM-ArchiMate/blob/main/patron_sistemas_agenticos.md) de la guía ArchiMate para mostrar qué herramientas invoca y qué riesgos propios de estos sistemas (alucinación, autonomía sin supervisión) hay que evaluar en la Parte 4.
+
 | Solución priorizada | Esfuerzo | Impacto | Quick win / Largo plazo | Prioridad |
 |---|---|---|---|---|
 | Balanceador redundante | Medio | Alto | Quick win | 1 |
