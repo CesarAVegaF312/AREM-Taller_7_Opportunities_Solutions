@@ -161,6 +161,8 @@ flowchart TD
     class lb2,dbmed,rutasmed nuevo
 ```
 
+🖼️ **Véalo interactivo:** en la [versión visual de este taller](visualizacion-opportunities-solutions.html) puede alternar AS-IS/TO-BE sobre este mismo diagrama de tecnología y hacer clic en cualquier elemento (nuevo o existente) para ver qué brecha resuelve, el beneficio esperado y el riesgo de implementarlo.
+
 **Controles de seguridad integrados:** el ejemplo guiado de RedExpress de este curso no tiene un Taller 5 construido específicamente para este caso (el ejemplo guiado de STRIDE del Taller 5 usa un sistema académico distinto, no RedExpress). *En su cliente real, incluya aquí los controles de seguridad del Taller 5 que apliquen a este TO-BE* — por ejemplo, si alguna de sus mitigaciones STRIDE (rate limiting, cifrado en tránsito/reposo, RBAC, auditoría) protege directamente uno de los componentes que este TO-BE modifica, decláralo explícitamente y trace la relación, tal como lo pide el documento oficial de la actividad.
 
 ### Parte 4 — Análisis de beneficios y riesgos
