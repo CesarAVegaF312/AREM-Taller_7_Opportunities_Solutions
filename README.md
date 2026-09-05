@@ -10,6 +10,12 @@ Proponer la arquitectura objetivo (TO-BE) de Aplicaciones y de Tecnología del c
 
 Antes de proponer el TO-BE, revise la [**Guía Paso a Paso: Opportunities & Solutions**](clase/guia_paso_a_paso_opportunities_solutions.md). Incluye qué cuenta como una brecha válida en este taller, la metodología en 4 partes (Diagnóstico inicial → Propuesta de mejoras → Visualización TO-BE → Análisis de beneficios y riesgos, siguiendo la actividad oficial de mejora de arquitectura del curso), un ejemplo completo construido paso a paso sobre el AS-IS de RedExpress ya trabajado en los Talleres 3 y 4, y una tabla de errores comunes.
 
+### 🖼️ Versión visual: Opportunities & Solutions
+
+[`clase/visualizacion-opportunities-solutions.html`](clase/visualizacion-opportunities-solutions.html) es una página interactiva autocontenida: un mapa de tecnología de RedExpress con un interruptor AS-IS/TO-BE que redibuja el mismo diagrama — en TO-BE aparecen el balanceador pasivo, la BD de Medellín y el módulo de rutas de Medellín, marcados con 🆕 —, la lluvia de ideas priorizada de la Parte 2, y la matriz de brechas cerradas con sus riesgos de implementación. Haga clic en cualquier elemento (nuevo o existente) para ver qué brecha resuelve, el beneficio esperado y el riesgo asociado. GitHub no la renderiza interactiva desde la vista de archivo; para verla:
+- Descargue el archivo y ábralo con doble clic (funciona sin conexión, es HTML plano), o
+- Pegue esta URL en [htmlpreview.github.io](https://htmlpreview.github.io/): `https://raw.githubusercontent.com/CesarAVegaF312/AREM-Taller_7_Opportunities_Solutions/main/clase/visualizacion-opportunities-solutions.html`
+
 ## 🚚 Caso base de referencia: RedExpress (continuación de los Talleres 3 y 4)
 
 Este taller no introduce un cliente ficticio nuevo: retoma el C1/C2 de RedExpress (Taller 3) y su mapa de infraestructura con los 3 riesgos ya diagnosticados (Taller 4) para proponer, sobre esa misma base, una arquitectura objetivo.
