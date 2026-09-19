@@ -206,6 +206,8 @@ La IA se equivocó en el umbral, pero la pregunta sí era buena, y el recálculo
 
 *4. Borrador de ADR (Registro).* Se le pide a la IA convertir la decisión en formato ADR (Contexto, Problema, Decisión, Alternativas, Consecuencias). El equipo revisa que incluya B y C **con su razón de descarte**, que las consecuencias incluyan lo negativo (la ventana de 30-60 s) y que ninguna cifra sea nueva: todo debe salir de la matriz.
 
+**Prompts listos para usar.** La [biblioteca de prompts](../plantillas/prompts_ia_decision.md) trae 12 prompts, uno por cada paso de este taller (diagnóstico, ideas, criterios, contraste de puntajes, abogado del diablo, riesgos, ADR, capacidades y revisor del entregable), cada uno con sus campos por completar y una lista de qué revisar en la respuesta.
+
 **Reglas para usar la IA en esta decisión:**
 
 1. **La IA propone, el equipo justifica.** Ningún puntaje ni recomendación se acepta sin la razón de una persona.
