@@ -166,6 +166,65 @@ Ahora se multiplica cada puntaje por el peso de su criterio y se suma:
 
 **Cómo se conecta con el resto del curso.** Esta decisión, con su contexto, alternativas descartadas y consecuencias, es exactamente el borrador de una **ADR** (Architecture Decision Record). En el Taller 9 se formaliza el registro; aquí se hace el trabajo intelectual de llegar a ella. Use la [plantilla de matriz de decisión](../plantillas/plantilla_matriz_decision.md) para hacer este ejercicio con su cliente real (una matriz por cada brecha que tenga más de una solución posible; no la necesita para brechas con una sola solución obvia).
 
+#### 2.2 La IA como copiloto de la decisión (co-inteligencia)
+
+Una herramienta de IA generativa puede acelerar casi todos los pasos de 2.1, y bien usada mejora la decisión: amplía las opciones y ataca los supuestos. Mal usada, produce una decisión que suena segura y que nadie sabe defender. La regla que ordena todo lo demás es una sola: **la IA propone; el equipo justifica y decide.** La responsabilidad de cada puntaje, de cada peso y de la decisión final sigue siendo de personas, porque es el equipo quien tendrá que defenderla ante el comité.
+
+**Qué se le pide a la IA en cada paso, y qué revisa el equipo:**
+
+| Paso del método | Qué se le pide a la IA | Qué revisa el equipo antes de aceptarlo |
+|---|---|---|
+| 4 · Generar opciones | Opciones adicionales, en especial una radicalmente distinta a las que ya tiene | Que sean viables con las restricciones reales (presupuesto, plazo, equipo); una idea de la IA es una hipótesis, no una opción hasta que se verifica con quien sabe |
+| 6 · Puntuar | Un borrador de puntajes con su razón | Cada puntaje contra la escala del Paso 3 y los datos del Paso 5; se corrige lo que no coincida |
+| 7 · Decidir | Que **ataque** la decisión: qué supuesto, si falla, la invalida y con qué pesos ganaría otra opción | Que lo que la IA afirma se **recalcule**: sus cifras y sus conclusiones pueden ser incorrectas |
+| Registro (hacia la ADR) | Un borrador de la decisión en formato ADR | Que estén las alternativas descartadas con su razón, las consecuencias negativas y que no haya datos inventados |
+
+**Ejemplo con la decisión del balanceador de RedExpress.**
+
+*1. Pedir una opción radicalmente distinta (Paso 4).* El equipo ya tiene A, B y C, y le da a la IA el problema del Paso 1, las restricciones (campaña el 1 de noviembre, presupuesto limitado, equipo pequeño) y las tres opciones descartables. Le pide: «proponga tres formas distintas de eliminar el punto único de falla, con los supuestos de cada una». Suponga que responde, entre otras, «usar un servicio de balanceo administrado por el proveedor cloud». **Eso todavía no es la opción D:** es una hipótesis. El equipo la convierte en opción solo después de preguntarle al proveedor cloud (Paso 5) cuánto cuesta, cuánto tarda y cuánta conmutación ofrece. Si el proveedor lo confirma, entra a la matriz con puntajes justificados; si no, se descarta y queda anotado por qué.
+
+*2. Borrador de puntajes contra datos verificados (Paso 6).* Para evitar el **anclaje** (aceptar el número de la IA solo porque llegó primero), el equipo puntúa **primero por su cuenta** y después compara con la IA. Las diferencias son la parte útil:
+
+| Celda | Propuesta de la IA | Dato verificado con quien sabe | Puntaje final | Quién corrigió |
+|---|---|---|---|---|
+| A · Costo | 4, «≈ USD 300/mes» | El proveedor cotizó ≈ USD 400/mes (sigue en el rango 100-500) | 4 | Equipo: corrige la cifra, el puntaje se mantiene |
+| B · Tiempo | 3, «4-6 semanas» | El líder de infraestructura estima 8-10 semanas | 2 | Equipo: corrige el puntaje |
+| B · Complejidad | 3 | Requiere almacén de sesión compartido que hoy no existe (Paso 5) | 2 | Equipo: corrige el puntaje |
+
+Sin esta comparación, B habría quedado con 3,45 en vez de 3,05, y la conversación sobre el costo real se habría perdido.
+
+*3. Pedirle que ataque la decisión (Paso 7).* El equipo le entrega la matriz, los pesos y la decisión A, y le pide: «ataque esta decisión: ¿qué supuesto la invalida? ¿con qué pesos ganaría B?». Suponga que la IA responde: «si la disponibilidad pesara 50 %, ganaría B». **El equipo no lo acepta: lo recalcula** (repartiendo el resto del peso en partes iguales):
+
+| Peso de Disponibilidad | Total A | Total B | ¿Quién gana? |
+|---|---|---|---|
+| 35 % (pesos del negocio: 25 / 20 / 20 para el resto) | 3,80 | 3,05 | A |
+| **50 %** (lo que afirmó la IA) | **3,83** | **3,50** | **A: la afirmación de la IA es falsa** |
+| 62,5 % | 3,88 | 3,88 | Empate |
+| 70 % | 3,90 | 4,10 | B |
+
+La IA se equivocó en el umbral, pero la pregunta sí era buena, y el recálculo da una respuesta más útil que la suya: **B solo gana si el negocio pesa la disponibilidad por encima de ~62 %.** Eso le da al comité una frase concreta para decidir: «si ustedes consideran que la disponibilidad vale más del 62 % de la decisión, cambiamos a B; si no, A». Esta es la lección central: la IA es muy buena generando la pregunta incómoda y poco confiable dando la cifra, por eso se recalcula siempre.
+
+*4. Borrador de ADR (Registro).* Se le pide a la IA convertir la decisión en formato ADR (Contexto, Problema, Decisión, Alternativas, Consecuencias). El equipo revisa que incluya B y C **con su razón de descarte**, que las consecuencias incluyan lo negativo (la ventana de 30-60 s) y que ninguna cifra sea nueva: todo debe salir de la matriz.
+
+**Reglas para usar la IA en esta decisión:**
+
+1. **La IA propone, el equipo justifica.** Ningún puntaje ni recomendación se acepta sin la razón de una persona.
+2. **Los pesos no se delegan.** Salen del negocio; la IA puede ayudar a probar sensibilidad, no a decidir qué importa.
+3. **Todo número o afirmación de la IA se verifica o se recalcula** antes de entrar a la matriz. Los costos, plazos y cifras que da con aplomo pueden estar inventados.
+4. **Puntúe primero usted, compare después.** Así evita el anclaje.
+5. **Pida también la contra-opinión.** Las herramientas tienden a favorecer la opción más popular o "estándar": pídale explícitamente opciones que la contradigan.
+6. **Cuide la confidencialidad del cliente.** Anonimice nombres, cifras internas y datos personales, o confirme por escrito que el cliente autoriza usar la herramienta.
+7. **Registre el uso de la IA:** qué se le pidió, qué propuso y qué cambió el equipo (basta una tabla como la del ejemplo). Es lo que mantiene trazable la decisión.
+
+**Cuando la solución que se está decidiendo incluye IA.** Si una de las opciones es un agente o un asistente (como la idea #7, el chatbot de RedExpress), la matriz necesita criterios adicionales, porque las opciones sin IA no los enfrentan:
+
+| Criterio adicional | Qué se evalúa | Dónde profundizar |
+|---|---|---|
+| Autonomía y supervisión humana | ¿Puede ejecutar acciones o solo responder? ¿Qué acciones exigen aprobación humana? | [Patrón de sistemas agénticos](https://github.com/CesarAVegaF312/AREM-ArchiMate/blob/main/patron_sistemas_agenticos.md) |
+| Tríada letal | ¿Combina acceso a datos privados, contenido no confiable y capacidad de comunicar hacia afuera? Basta romper una de las tres | Taller 5 (MITRE ATLAS y ejemplo de código) |
+| Fiabilidad | Qué pasa cuando alucina o se equivoca, y quién lo detecta | Taller 6 si maneja datos personales |
+| Costo variable y dependencia | El costo por uso crece con el volumen; el proveedor del modelo es una dependencia externa | Riesgos de la Parte 4 |
+
 ### Parte 3 — Visualización TO-BE
 
 **TO-BE de Aplicaciones:** se extiende el C2 del Taller 3 agregando un **Módulo de Procesamiento de Rutas y Paquetes - Medellín**, réplica del de Bogotá, para que la región deje de depender de un solo punto de procesamiento.
@@ -349,6 +408,7 @@ Esta vista es la que el Taller 9 convierte en el roadmap: cada paquete de trabaj
 | Elegir entre opciones "porque se ve mejor", sin matriz | La decisión no se puede defender ni reconstruir cuando alguien pregunte por qué (Parte 2.1) | Puntúe cada opción contra criterios ponderados, con justificación por celda |
 | Que el equipo técnico fije los pesos de los criterios | El resultado refleja lo que le importa al equipo, no al cliente; con otros pesos puede invertirse | Los pesos los define o valida el negocio; pruebe la sensibilidad con pesos alternativos |
 | Puntajes sin justificación ("le puse 4") | Es una opinión con apariencia de número | Cada celda cita la escala del criterio o el dato consultado |
+| Aceptar los puntajes, cifras o conclusiones de una IA sin verificarlos | Puede afirmar con aplomo un dato inventado o un umbral equivocado (Parte 2.2) | Recalcule sus afirmaciones, contraste sus cifras con quien sabe y puntúe primero usted |
 | Comparar solo opciones parecidas entre sí | Nadie prueba si "no hacer casi nada" ya resolvía el problema | Incluya al menos una opción radicalmente distinta (por ejemplo, aceptar el riesgo) |
 | Listar capacidades con nombres de sistemas ("CRM", "Motor de Rutas") | Son aplicaciones, no capacidades; la mejora pierde su lenguaje de negocio (Parte 4.1) | Nombre las capacidades con verbo + objeto, sin tecnología |
 
@@ -367,6 +427,8 @@ Esta vista es la que el Taller 9 convierte en el roadmap: cada paquete de trabaj
 - [ ] Cada brecha con más de una solución posible tiene su matriz de decisión: problema en términos de impacto, último momento responsable, criterios con escala y pesos definidos por el negocio, 2-3 opciones (una radicalmente distinta) y puntajes justificados celda por celda.
 - [ ] La decisión registra el trade-off aceptado, las alternativas descartadas con su razón y cuándo se vuelve a evaluar.
 - [ ] Se probó qué pasa si cambian los pesos (sensibilidad) y se definió si hay un criterio eliminatorio.
+- [ ] Si se usó IA: cada cifra o afirmación suya se verificó o recalculó, los pesos los fijó el negocio, se cuidó la confidencialidad del cliente y quedó registrado qué propuso la IA y qué cambió el equipo.
+- [ ] Si alguna opción incluye un agente o asistente de IA, la matriz tiene criterios adicionales (autonomía y supervisión humana, tríada letal, fiabilidad, costo variable).
 - [ ] Las brechas están agrupadas por capacidad de negocio (con madurez AS-IS y TO-BE) y organizadas en paquetes de trabajo.
 - [ ] El análisis incluye riesgos/limitaciones que podrían impedir la implementación, no solo beneficios.
 - [ ] La matriz de brechas queda lista para alimentar el Plan de Implementación del Taller 9.

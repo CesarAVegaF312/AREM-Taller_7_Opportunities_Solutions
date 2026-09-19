@@ -107,4 +107,19 @@ _Cuándo o ante qué disparador se vuelve a mirar esta decisión:_
 
 ---
 
+## Registro de uso de IA (solo si usó una herramienta de IA)
+
+La IA propone; el equipo justifica y decide ([guía, sección 2.2](../clase/guia_paso_a_paso_opportunities_solutions.md)). Anonimice los datos del cliente o confirme que autoriza usar la herramienta.
+
+| Paso | Qué se le pidió a la IA | Qué propuso | Dato verificado o recalculado | Qué cambió el equipo |
+|---|---|---|---|---|
+| | | | | |
+| | | | | |
+
+- [ ] Puntué por mi cuenta antes de comparar con la IA (evita el anclaje).
+- [ ] Verifiqué o recalculé toda cifra y afirmación de la IA que entró a la matriz.
+- [ ] Los pesos los fijó o validó el negocio, no la IA.
+
+---
+
 _Esta decisión es el borrador de una ADR: en el Taller 9 se formaliza su registro (Contexto, Problema, Decisión, Alternativas, Consecuencias)._
