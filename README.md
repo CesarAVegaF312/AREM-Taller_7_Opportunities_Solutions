@@ -1,22 +1,22 @@
-# 🛠️ Taller 7: Opportunities & Solutions
+# Taller 7: Opportunities & Solutions
 
-## 🎯 Objetivo
+## Objetivo
 
 Proponer la arquitectura objetivo (TO-BE) de Aplicaciones y de Tecnología del cliente real, identificando las brechas frente al estado actual (AS-IS) documentado en los Talleres 1 a 6 — incluyendo seguridad y cumplimiento normativo — y priorizando las soluciones que las cierran.
 
 ---
 
-## 📘 Guía paso a paso
+## Guía paso a paso
 
-Antes de proponer el TO-BE, revise la [**Guía Paso a Paso: Opportunities & Solutions**](clase/guia_paso_a_paso_opportunities_solutions.md). Incluye qué cuenta como una brecha válida en este taller, la metodología en 4 partes (Diagnóstico inicial → Propuesta de mejoras → Visualización TO-BE → Análisis de beneficios y riesgos, siguiendo la actividad oficial de mejora de arquitectura del curso), un ejemplo completo construido paso a paso sobre el AS-IS de RedExpress ya trabajado en los Talleres 3 y 4, y una tabla de errores comunes.
+Antes de proponer el TO-BE, revise la [**Guía Paso a Paso: Opportunities & Solutions**](clase/guia_paso_a_paso_opportunities_solutions.md). Incluye qué cuenta como una brecha válida en este taller, la metodología en 4 partes (Diagnóstico inicial → Propuesta de mejoras → Visualización TO-BE → Análisis de beneficios y riesgos, siguiendo la actividad oficial de mejora de arquitectura del curso), un ejemplo completo construido paso a paso sobre el AS-IS de RedExpress ya trabajado en los Talleres 3 y 4, y una tabla de errores comunes. Además incluye tres apoyos para decidir: la **matriz de decisión ponderada** (sección 2.1, con el marco de 8 pasos), el uso de la **IA como copiloto de la decisión** (sección 2.2) y la agrupación de brechas por **capacidad de negocio** en paquetes de trabajo (sección 4.1). Para la clase hay también una presentación (`7. Oportunidades_Soluciones.pptx`) que sigue el hilo contexto, armar la solución y tomar la decisión.
 
-### 🖼️ Versión visual: Opportunities & Solutions
+### Versión visual: Opportunities & Solutions
 
-[`clase/visualizacion-opportunities-solutions.html`](clase/visualizacion-opportunities-solutions.html) es una página interactiva autocontenida: un mapa de tecnología de RedExpress con un interruptor AS-IS/TO-BE que redibuja el mismo diagrama — en TO-BE aparecen el balanceador pasivo, la BD de Medellín y el módulo de rutas de Medellín, marcados con 🆕 —, la lluvia de ideas priorizada de la Parte 2, y la matriz de brechas cerradas con sus riesgos de implementación. Haga clic en cualquier elemento (nuevo o existente) para ver qué brecha resuelve, el beneficio esperado y el riesgo asociado. GitHub no la renderiza interactiva desde la vista de archivo; para verla:
+[`clase/visualizacion-opportunities-solutions.html`](clase/visualizacion-opportunities-solutions.html) es una página interactiva autocontenida: un mapa de tecnología de RedExpress con un interruptor AS-IS/TO-BE que redibuja el mismo diagrama — en TO-BE aparecen el balanceador pasivo, la BD de Medellín y el módulo de rutas de Medellín, marcados con la etiqueta NUEVO —, la lluvia de ideas priorizada de la Parte 2, la matriz de brechas cerradas con sus riesgos de implementación, una matriz de decisión ponderada con deslizadores para mover los pesos y ver cambiar el ranking en vivo, y el mapa de capacidades con sus paquetes de trabajo. Haga clic en cualquier elemento (nuevo o existente) para ver qué brecha resuelve, el beneficio esperado y el riesgo asociado. GitHub no la renderiza interactiva desde la vista de archivo; para verla:
 - Descargue el archivo y ábralo con doble clic (funciona sin conexión, es HTML plano), o
 - Pegue esta URL en [htmlpreview.github.io](https://htmlpreview.github.io/): `https://raw.githubusercontent.com/CesarAVegaF312/AREM-Taller_7_Opportunities_Solutions/main/clase/visualizacion-opportunities-solutions.html`
 
-## 🚚 Caso base de referencia: RedExpress (continuación de los Talleres 3 y 4)
+## Caso base de referencia: RedExpress (continuación de los Talleres 3 y 4)
 
 Este taller no introduce un cliente ficticio nuevo: retoma el C1/C2 de RedExpress (Taller 3) y su mapa de infraestructura con los 3 riesgos ya diagnosticados (Taller 4) para proponer, sobre esa misma base, una arquitectura objetivo.
 
@@ -26,7 +26,7 @@ Este taller no introduce un cliente ficticio nuevo: retoma el C1/C2 de RedExpres
 
 ---
 
-## 🧪 Parte 1: Trabajo en Clase
+## Parte 1: Trabajo en Clase
 
 Durante la clase se espera que el equipo:
 
@@ -42,7 +42,7 @@ Siga la metodología en 4 partes de la [guía paso a paso](clase/guia_paso_a_pas
 
 ---
 
-## 🧠 Parte 2: Aplicación al Cliente Real
+## Parte 2: Aplicación al Cliente Real
 
 Después de la clase, el equipo debe:
 
@@ -54,11 +54,12 @@ Después de la clase, el equipo debe:
 
 ---
 
-## 📁 Estructura esperada del repositorio
+## Estructura esperada del repositorio
 
 ```text
 taller-07-opportunities-solutions/
 ├── README.md
+├── 7. Oportunidades_Soluciones.pptx                  # Presentación de la clase
 ├── clase/
 │   ├── guia_paso_a_paso_opportunities_solutions.md   # Qué es una brecha, metodología en 4 partes y ejemplo guiado
 │   ├── to-be-borrador.drawio
@@ -80,11 +81,11 @@ taller-07-opportunities-solutions/
 
 ---
 
-## ⚠️ Errores comunes
+## Errores comunes
 
 Antes de entregar, compare su TO-BE y su matriz contra los errores más frecuentes (TO-BE sin brechas concretas de origen, brechas de seguridad/normatividad ignoradas, priorización solo por impacto) documentados en la [sección 4 de la guía paso a paso](clase/guia_paso_a_paso_opportunities_solutions.md#4-errores-comunes-a-evitar).
 
-## 📤 Entregables
+## Entregables
 
 - Documento único de mejora de arquitectura (`entrega/mejora-arquitectura.md`), máx. 6 páginas + anexos, siguiendo las 4 partes: Diagnóstico inicial, Propuesta de mejoras, Visualización TO-BE, Análisis de beneficios y riesgos.
 - Anexos: Modelo TO-BE de Aplicaciones (extensión del C2 del Taller 3), Modelo TO-BE de Tecnología (extensión del mapa del Taller 4) y Matriz de brechas (Gap Analysis) priorizada.
@@ -93,7 +94,7 @@ Antes de entregar, compare su TO-BE y su matriz contra los errores más frecuent
 
 ---
 
-## 📊 Rúbrica de Evaluación
+## Rúbrica de Evaluación
 
 Pesos y criterios oficiales de la actividad de mejora de arquitectura del curso:
 
@@ -107,6 +108,6 @@ Pesos y criterios oficiales de la actividad de mejora de arquitectura del curso:
 
 ---
 
-## ✅ Licencia
+## Licencia
 
 Este taller hace parte del curso de Arquitectura Empresarial - Universidad de La Sabana. Uso académico bajo licencia MIT.

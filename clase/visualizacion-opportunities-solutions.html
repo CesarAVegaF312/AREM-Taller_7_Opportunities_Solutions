@@ -286,7 +286,7 @@
         <h2 id="stateName">Tecnología de RedExpress · AS-IS</h2>
         <p class="note" id="stateDesc" style="margin:2px 0 14px">Mapa de infraestructura diagnosticado en el Taller 4, con los 3 puntos de riesgo marcados en rojo.</p>
         <div id="diagram"></div>
-        <p class="note" style="margin-top:12px">Los elementos con borde verde y "🆕" no existían en el AS-IS. Haga clic en cualquier componente o conexión resaltada para ver el detalle.</p>
+        <p class="note" style="margin-top:12px">Los elementos con borde verde y la etiqueta NUEVO no existían en el AS-IS. Haga clic en cualquier componente o conexión resaltada para ver el detalle.</p>
       </div>
       <div class="panel">
         <p class="ref">Análisis</p>
@@ -405,11 +405,11 @@
       <p class="lede" style="margin-bottom:18px">La capa de Implementación y Migración tiene elementos diseñados exactamente para un análisis de brechas: <strong>Plateau</strong> (un estado estable de la arquitectura) y <strong>Gap</strong> (la diferencia entre dos plateaus).</p>
 
       <div class="triad">
-        <div class="block threatline"><h3>📍 Plateau · AS-IS 2026</h3><p>Balanceador único, BD centralizada en Bogotá.</p></div>
+        <div class="block threatline"><h3>Plateau · AS-IS 2026</h3><p>Balanceador único, BD centralizada en Bogotá.</p></div>
         <div class="plus">→</div>
-        <div class="block inkline"><h3>⚠️ Gap</h3><p>Alta disponibilidad y latencia regional.</p></div>
+        <div class="block inkline"><h3>Gap</h3><p>Alta disponibilidad y latencia regional.</p></div>
         <div class="plus">→</div>
-        <div class="block controlline"><h3>📍 Plateau · TO-BE 2027</h3><p>Balanceador redundante, BD particionada.</p></div>
+        <div class="block controlline"><h3>Plateau · TO-BE 2027</h3><p>Balanceador redundante, BD particionada.</p></div>
       </div>
 
       <p class="note" style="margin-top:16px">La matriz de brechas de la sección anterior <strong>es</strong>, en el fondo, una lista de elementos <code>Gap</code>: cada fila conecta un <code>Plateau</code> AS-IS (lo diagnosticado en los Talleres 3-6) con un <code>Plateau</code> TO-BE (lo que este taller propone). Esos mismos <code>Gap</code> son los que el Taller 9 convierte en <code>Work Package</code> dentro del Plan de Implementación — la cadena completa es: <strong>Constraint/Requirement (Talleres 5-6) → Gap (este taller) → Work Package (Taller 9) → nuevo Plateau</strong>.</p>
@@ -554,7 +554,7 @@ let state = "asis", selected = null;
 
 const STATE_META = {
   asis: {title:"Tecnología de RedExpress · AS-IS", desc:"Mapa de infraestructura diagnosticado en el Taller 4, con los 3 puntos de riesgo marcados en rojo."},
-  tobe: {title:"Tecnología de RedExpress · TO-BE", desc:"Balanceador redundante, base de datos particionada por región y módulo de rutas propio en Medellín (marcados en verde, con 🆕)."}
+  tobe: {title:"Tecnología de RedExpress · TO-BE", desc:"Balanceador redundante, base de datos particionada por región y módulo de rutas propio en Medellín (marcados en verde, con la etiqueta NUEVO)."}
 };
 
 function nodeContent(n){
@@ -592,8 +592,8 @@ function renderDiagram(){
     s += `<g class="hit" tabindex="0" role="button" aria-pressed="${sel}" data-id="${n.id}" aria-label="${esc(c.label)}">
       <rect x="${n.x}" y="${n.y}" width="${n.w}" height="${n.h}" rx="${r}" fill="${NODEFILL[n.kind]}" stroke="${stroke}" stroke-width="${strokeW}" ${dash?`stroke-dasharray="${dash}"`:""}/>
       ${n.kind==="store" ? `<rect x="${n.x}" y="${n.y}" width="${n.w}" height="6" fill="${c.flag==='new'?'#1C7150':(c.flag==='risk'?'#B4552B':'#C9C6B8')}"/>` : ``}
-      ${c.flag==="new" ? `<text x="${n.x+10}" y="${n.y+16}" font-size="12">🆕</text>` : ``}
-      ${c.flag==="risk" ? `<text x="${n.x+10}" y="${n.y+16}" font-size="12">⚠️</text>` : ``}
+      ${c.flag==="new" ? `<text x="${n.x+10}" y="${n.y+16}" font-size="9" font-weight="700">NUEVO</text>` : ``}
+      ${c.flag==="risk" ? `<text x="${n.x+10}" y="${n.y+16}" font-size="9" font-weight="700">RIESGO</text>` : ``}
       <text class="nlabel" x="${n.x+n.w/2}" y="${n.y+n.h/2-2}" text-anchor="middle">${esc(c.label)}</text>
       <text class="nsub" x="${n.x+n.w/2}" y="${n.y+n.h/2+13}" text-anchor="middle">${esc(c.sub||"")}</text>
     </g>`;
@@ -649,9 +649,9 @@ function select(id){
     const c = nodeContent(node);
     if(c.gap){
       const badge = c.flag==="risk"
-        ? {cls:"risk", text:"⚠️ Riesgo diagnosticado (Taller 4)"}
+        ? {cls:"risk", text:"Riesgo diagnosticado (Taller 4)"}
         : c.flag==="new"
-          ? {cls:"new", text:"🆕 Elemento nuevo del TO-BE"}
+          ? {cls:"new", text:"Elemento nuevo del TO-BE"}
           : null;
       document.getElementById("detail").innerHTML = gapDetail(c.label + (c.sub?" · "+c.sub:""), badge, c.gap);
     } else {
@@ -664,8 +664,8 @@ function select(id){
   const edge = EDGES.find(e=>e.id===id);
   if(edge){
     const badge = state==="asis"
-      ? {cls:"risk", text:"⚠️ Cuello de botella diagnosticado (Taller 4)"}
-      : {cls:"new", text:"🆕 Conexión nueva del TO-BE"};
+      ? {cls:"risk", text:"Cuello de botella diagnosticado (Taller 4)"}
+      : {cls:"new", text:"Conexión nueva del TO-BE"};
     document.getElementById("detail").innerHTML = gapDetail(edge.title, badge, edge.gap);
   }
 }
