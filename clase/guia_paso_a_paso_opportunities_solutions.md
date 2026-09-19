@@ -1,4 +1,4 @@
-# 🧭 Guía Paso a Paso: Opportunities & Solutions (Diseño del TO-BE y Análisis de Brechas)
+# Guía Paso a Paso: Opportunities & Solutions (Diseño del TO-BE y Análisis de Brechas)
 
 Esta guía complementa el `README.md` del taller y sigue la estructura oficial de la actividad de mejora de arquitectura del curso (documento `Guia_Entrega_Mejora_Arquitectura.pdf`): **Diagnóstico inicial → Propuesta de mejoras → Visualización TO-BE → Análisis de beneficios y riesgos**. Este taller no crea un caso base nuevo: retoma el **AS-IS de RedExpress** ya construido en el Taller 3 (C1/C2) y el Taller 4 (mapa de infraestructura y diagnóstico) para proponer, por primera vez en el curso, una arquitectura objetivo (TO-BE) — y hacerlo *después* de haber pasado por seguridad (Taller 5) y normatividad (Taller 6), no antes.
 
@@ -239,7 +239,7 @@ flowchart TD
         lb["Balanceador de Carga"]
         gestion["Módulo de Gestión de Paquetes"]
         rutasbog["Motor de Rutas - Bogotá"]
-        rutasmed["🆕 Motor de Rutas - Medellín"]
+        rutasmed["NUEVO: Motor de Rutas - Medellín"]
         gps["Seguimiento GPS"]
         alertas["Sistema de Alertas"]
         db[("Base de Datos Distribuida")]
@@ -267,17 +267,17 @@ flowchart TD
 ```mermaid
 flowchart TD
     subgraph clientes["Clientes"]
-        usuario(["📱 App Móvil - Usuario Final"])
-        mensajero(["📱 App Móvil - Mensajero"])
-        operador(["💻 Portal Web - Operador"])
+        usuario(["App Móvil - Usuario Final"])
+        mensajero(["App Móvil - Mensajero"])
+        operador(["Portal Web - Operador"])
     end
 
     subgraph borde["Borde / Global (TO-BE)"]
         lb1["Balanceador de Carga - Activo"]
-        lb2["🆕 Balanceador de Carga - Pasivo"]
+        lb2["NUEVO: Balanceador de Carga - Pasivo"]
         monitor["Servicio de Monitoreo y Alertas"]
         dbbog[("BD Bogotá")]
-        dbmed[("🆕 BD Medellín (partición regional)")]
+        dbmed[("NUEVO: BD Medellín (partición regional)")]
     end
 
     subgraph bogota["Región Bogotá"]
@@ -287,7 +287,7 @@ flowchart TD
 
     subgraph medellin["Región Medellín (TO-BE)"]
         gwmed["API Gateway - Medellín"]
-        rutasmed["🆕 Módulo de Rutas - Medellín"]
+        rutasmed["NUEVO: Módulo de Rutas - Medellín"]
     end
 
     usuario --> lb1
@@ -307,7 +307,7 @@ flowchart TD
     class lb2,dbmed,rutasmed nuevo
 ```
 
-🖼️ **Véalo interactivo:** en la [versión visual de este taller](visualizacion-opportunities-solutions.html) puede alternar AS-IS/TO-BE sobre este mismo diagrama de tecnología y hacer clic en cualquier elemento (nuevo o existente) para ver qué brecha resuelve, el beneficio esperado y el riesgo de implementarlo.
+**Véalo interactivo:** en la [versión visual de este taller](visualizacion-opportunities-solutions.html) puede alternar AS-IS/TO-BE sobre este mismo diagrama de tecnología y hacer clic en cualquier elemento (nuevo o existente) para ver qué brecha resuelve, el beneficio esperado y el riesgo de implementarlo.
 
 **Controles de seguridad integrados:** el ejemplo guiado de RedExpress de este curso no tiene un Taller 5 construido específicamente para este caso (el ejemplo guiado de STRIDE del Taller 5 usa un sistema académico distinto, no RedExpress). *En su cliente real, incluya aquí los controles de seguridad del Taller 5 que apliquen a este TO-BE* — por ejemplo, si alguna de sus mitigaciones STRIDE (rate limiting, cifrado en tránsito/reposo, RBAC, auditoría) protege directamente uno de los componentes que este TO-BE modifica, decláralo explícitamente y trace la relación, tal como lo pide el documento oficial de la actividad.
 
@@ -443,9 +443,9 @@ Este es el taller donde ArchiMate deja de ser "una notación más" y se vuelve l
 
 ```mermaid
 flowchart LR
-    asis["📍 Plateau: AS-IS 2026\n(Balanceador único, BD centralizada)"]
-    gap(["⚠️ Gap: alta disponibilidad y latencia regional"])
-    tobe["📍 Plateau: TO-BE 2027\n(Balanceador redundante, BD particionada)"]
+    asis["Plateau: AS-IS 2026\n(Balanceador único, BD centralizada)"]
+    gap(["Gap: alta disponibilidad y latencia regional"])
+    tobe["Plateau: TO-BE 2027\n(Balanceador redundante, BD particionada)"]
 
     asis -->|"se compara con"| gap
     gap -->|"se resuelve en"| tobe

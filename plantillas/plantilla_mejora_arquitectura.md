@@ -1,9 +1,9 @@
-# 📄 Mejora de Arquitectura (TO-BE) — Identificación y Priorización de Mejoras
+# Mejora de Arquitectura (TO-BE) — Identificación y Priorización de Mejoras
 
-## 🔖 Cliente
+## Cliente
 _Nombre del cliente real_
 
-## 👥 Integrantes del equipo
+## Integrantes del equipo
 - Nombre 1 (correo o usuario GitHub)
 - Nombre 2
 - Nombre 3
@@ -11,7 +11,7 @@ _Nombre del cliente real_
 ---
 
 ## 1. Diagnóstico inicial
-> 📏 Presupuesto sugerido: **~1 página**.
+> Presupuesto sugerido: **~1 página**.
 
 Responda con base en lo ya diagnosticado en los Talleres 3 a 6 (no invente hallazgos nuevos):
 
@@ -26,7 +26,7 @@ _Redacte aquí el resumen breve que sirve de base para proponer mejoras._
 ---
 
 ## 2. Propuesta de mejoras
-> 📏 Presupuesto sugerido: **~2 páginas**.
+> Presupuesto sugerido: **~2 páginas**.
 
 ### 2.1 Lluvia de ideas (sin censura inicial)
 Liste **al menos 6 ideas** de mejora, sin descartar ninguna todavía — de proceso, comunicación con el cliente, tecnología y/o seguridad:
@@ -51,7 +51,7 @@ De la lista anterior, seleccione **2-3 ideas** y justifique por qué, distinguie
 ---
 
 ## 3. Visualización TO-BE
-> 📏 Presupuesto sugerido: **~2 páginas** (los diagramas completos pueden ir como anexo).
+> Presupuesto sugerido: **~2 páginas** (los diagramas completos pueden ir como anexo).
 
 ### 3.1 Proceso mejorado
 _¿Cómo se transforma el proceso actual en uno más ágil o seguro? (BPMN o diagrama simple; referencie el anexo si aplica)._
@@ -65,7 +65,7 @@ _¿Qué controles de seguridad del Taller 5 se integran en este TO-BE?_
 ---
 
 ## 4. Análisis de beneficios y riesgos
-> 📏 Presupuesto sugerido: **~1 página**.
+> Presupuesto sugerido: **~1 página**.
 
 | Mejora / Solución | Beneficio de negocio | Beneficio tecnológico/seguridad | Riesgo, limitación o dependencia de implementación |
 |---|---|---|---|
@@ -75,7 +75,7 @@ _¿Qué controles de seguridad del Taller 5 se integran en este TO-BE?_
 
 ---
 
-## 📎 Anexos
+## Anexos
 - Diagrama TO-BE de Aplicaciones: `entrega/to-be-aplicaciones-final.drawio`
 - Diagrama TO-BE de Tecnología: `entrega/to-be-tecnologia-final.drawio`
 - Matriz de brechas (Gap Analysis): `entrega/matriz-brechas.xlsx`

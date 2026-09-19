@@ -1,4 +1,4 @@
-# 📄 Matriz de Decisión Ponderada
+# Matriz de Decisión Ponderada
 
 Use una matriz por cada brecha que tenga **más de una solución posible**. Guía y ejemplo completo: sección 2.1 de la [guía paso a paso](../clase/guia_paso_a_paso_opportunities_solutions.md).
 

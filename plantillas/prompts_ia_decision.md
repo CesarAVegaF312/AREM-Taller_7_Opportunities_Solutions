@@ -1,4 +1,4 @@
-# 🤖 Prompts para usar IA como copiloto en el Taller 7
+# Prompts para usar IA como copiloto en el Taller 7
 
 Estos prompts siguen el método de la [guía paso a paso](../clase/guia_paso_a_paso_opportunities_solutions.md) (secciones 1 a 4 y 2.2). Sirven para **acelerar** el trabajo, no para reemplazarlo: la IA propone; el equipo verifica, justifica y decide.
 
