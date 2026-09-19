@@ -146,6 +146,46 @@
   .callout p{color:#C6D6E1;margin:0;max-width:78ch}
   .callout strong{color:#E0A06B}
 
+  /* ---------- matriz de decisión ---------- */
+  .dm-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:22px;margin:18px 0}
+  @media(max-width:940px){ .dm-grid{grid-template-columns:1fr} }
+  .presets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .presets button,.tog{
+    font-family:var(--mono);font-size:12px;letter-spacing:.03em;padding:7px 12px;background:transparent;
+    border:1px solid var(--ink);color:var(--ink);cursor:pointer
+  }
+  .presets button[aria-pressed="true"],.tog[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+  .presets button:focus-visible,.tog:focus-visible,.cellbtn:focus-visible,input[type=range]:focus-visible{outline:2px solid var(--threat);outline-offset:2px}
+  .slider-row{margin:0 0 12px}
+  .slider-row label{display:flex;justify-content:space-between;gap:8px;font-size:14px;font-weight:700}
+  .slider-row .pct{font-family:var(--mono);font-size:12.5px;color:var(--threat);font-weight:400}
+  .slider-row input{width:100%;accent-color:var(--ink)}
+  .cellbtn{font-family:var(--mono);font-size:13px;background:var(--card);border:1px solid var(--rule);padding:6px 8px;cursor:pointer;color:var(--ink);width:100%;text-align:left}
+  .cellbtn[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .cellbtn .ws{color:var(--steel)}
+  .cellbtn[aria-pressed="true"] .ws{color:#E0A06B}
+  tr.out td{color:var(--steel)}
+  tr.out .optname{text-decoration:line-through}
+  .bars .brow{display:grid;grid-template-columns:minmax(120px,1.1fr) 3fr auto;gap:10px;align-items:center;margin:8px 0;font-size:14px}
+  .bars .track{background:rgba(20,38,60,.08);height:16px;position:relative}
+  .bars .fill{height:100%;background:var(--ink);transition:width .25s}
+  .bars .brow.best .fill{background:var(--control)}
+  .bars .brow.out .fill{background:var(--steel);opacity:.45}
+  .bars .brow.out .bname{text-decoration:line-through;color:var(--steel)}
+  .bars .val{font-family:var(--mono);font-size:13px;min-width:5.5em;text-align:right}
+  .tag{font-family:var(--mono);font-size:11px;color:var(--control);border:1px solid var(--control);padding:1px 6px;margin-left:6px;text-decoration:none;display:inline-block}
+  .tag.no{color:var(--threat);border-color:var(--threat)}
+  .warnbox{border:1px solid var(--threat);background:rgba(180,85,43,.09);padding:12px 14px;font-size:14.5px;color:var(--ink);margin:14px 0}
+  .warnbox[hidden]{display:none}
+  .mat-row{display:grid;grid-template-columns:minmax(150px,1.2fr) 3fr;gap:12px;align-items:center;padding:10px 12px;border:1px solid var(--rule);border-top:0;background:var(--card);font-size:14px}
+  .mat-row.sel{outline:2px solid var(--ink);outline-offset:-2px}
+  .mat-row .mb{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;margin:2px 0;font-family:var(--mono);font-size:11.5px;color:var(--steel)}
+  .mat-row .mt{background:rgba(20,38,60,.08);height:12px}
+  .mat-row .mf{height:100%}
+  .mf.asis{background:var(--steel)}
+  .mf.tobe{background:var(--control)}
+  @media(max-width:640px){ .mat-row{grid-template-columns:1fr} }
+
   .note{font-size:14px;color:var(--steel);max-width:78ch}
   footer{border-top:1px solid var(--rule);margin-top:40px;padding:26px 0 50px}
   footer p{font-family:var(--mono);font-size:12px;color:var(--steel)}
@@ -161,6 +201,8 @@
       <a href="#ideas">Lluvia de ideas</a>
       <a href="#laboratorio">TO-BE interactivo</a>
       <a href="#brechas">Brechas y riesgos</a>
+      <a href="#decision">Matriz de decisión</a>
+      <a href="#capacidades">Capacidades</a>
       <a href="#archimate">ArchiMate</a>
       <a href="#errores">Errores comunes</a>
     </nav>
@@ -299,10 +341,66 @@
     </div>
   </section>
 
-  <!-- ============ 05 · ARCHIMATE ============ -->
+  <!-- ============ 05 · MATRIZ DE DECISIÓN ============ -->
+  <section class="sheet" id="decision">
+    <div class="sheet-inner">
+      <p class="ref">05 · Cómo decidir</p>
+      <h2>Matriz de decisión ponderada</h2>
+      <p class="lede" style="margin-bottom:6px">Decisión: ¿cómo eliminar el punto único de falla del balanceador de carga antes de la campaña de fin de año? Tres opciones, cuatro criterios con peso definido por el negocio, escala 1–5 donde 5 siempre es lo más favorable (más disponible, más barato, más simple, más rápido).</p>
+      <p class="note" style="margin:0 0 4px"><strong>A</strong> · Balanceador activo-pasivo con failover automático &nbsp;·&nbsp; <strong>B</strong> · Balanceador activo-activo &nbsp;·&nbsp; <strong>C</strong> · Mantener un único balanceador con monitoreo reforzado</p>
+
+      <div class="dm-grid">
+        <div>
+          <h3>Pesos de los criterios</h3>
+          <div class="presets" role="group" aria-label="Preajustes de pesos">
+            <button type="button" data-preset="negocio" aria-pressed="true">Pesos del negocio (35/25/20/20)</button>
+            <button type="button" data-preset="costo" aria-pressed="false">Prioriza costo (15/35/25/25)</button>
+          </div>
+          <div id="dmSliders"></div>
+          <p class="note" style="margin:0 0 12px">Los deslizadores (0–100) se normalizan a porcentaje antes de calcular.</p>
+          <button type="button" class="tog" id="dmElim" aria-pressed="false">Criterio eliminatorio: Disponibilidad ≥ 3</button>
+        </div>
+        <div>
+          <h3>Ranking</h3>
+          <div class="bars" id="dmBars" role="list" aria-label="Ranking de opciones"></div>
+        </div>
+      </div>
+
+      <div class="warnbox" id="dmWarn" role="status" hidden><strong>Ojo: el resultado se invirtió.</strong> Con estos pesos gana C, la opción que no elimina el punto único de falla. Si los pesos los define el equipo técnico y no el negocio, el resultado se invierte; los pesos deben salir del negocio, no del equipo que propone las opciones. Active el criterio eliminatorio para ver cómo un mínimo de disponibilidad protege de este sesgo.</div>
+
+      <h3 style="margin-bottom:8px">Puntajes y puntaje ponderado por celda</h3>
+      <div class="tablewrap">
+        <table id="dmTable"></table>
+      </div>
+      <p class="note" style="margin:8px 0 12px">Haga clic en una celda para ver la justificación del puntaje. Cada celda muestra puntaje 1–5 y, entre paréntesis, puntaje × peso.</p>
+      <div class="chaindetail" id="dmDetail" style="border-top:1px solid var(--rule)" aria-live="polite"></div>
+
+      <div class="callout" style="margin-top:20px">
+        <p><strong>Decisión: A.</strong> Trade-off aceptado: se sacrifica conmutación instantánea (ventana de 30-60 s) a cambio de menor costo y complejidad. <strong>Reevaluar:</strong> después de la campaña de fin de año, o si el tráfico crece 30 % sobre el pico.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 06 · CAPACIDADES ============ -->
+  <section class="sheet" id="capacidades">
+    <div class="sheet-inner">
+      <p class="ref">06 · Del negocio al trabajo</p>
+      <h2>Mapa de capacidades, brechas y paquetes de trabajo</h2>
+      <p class="lede" style="margin-bottom:18px">Una brecha técnica importa por la capacidad de negocio que debilita. Elija una capacidad para ver su madurez AS-IS frente a TO-BE (escala 1–5), las brechas que la afectan y el paquete de trabajo que las cierra.</p>
+
+      <div class="chain" role="group" aria-label="Capacidades de negocio de RedExpress" id="capChain"></div>
+      <div class="chaindetail" id="capDetail" aria-live="polite"></div>
+
+      <h3 style="margin:24px 0 8px">Madurez AS-IS vs TO-BE</h3>
+      <p class="note" style="margin:0 0 8px"><span style="color:var(--steel)">■</span> AS-IS &nbsp; <span style="color:var(--control)">■</span> TO-BE</p>
+      <div id="capBars" style="border-top:1px solid var(--rule)"></div>
+    </div>
+  </section>
+
+  <!-- ============ 07 · ARCHIMATE ============ -->
   <section class="sheet" id="archimate">
     <div class="sheet-inner">
-      <p class="ref">05 · Vista equivalente</p>
+      <p class="ref">07 · Vista equivalente</p>
       <h2>Plateau y Gap en ArchiMate</h2>
       <p class="lede" style="margin-bottom:18px">La capa de Implementación y Migración tiene elementos diseñados exactamente para un análisis de brechas: <strong>Plateau</strong> (un estado estable de la arquitectura) y <strong>Gap</strong> (la diferencia entre dos plateaus).</p>
 
@@ -321,7 +419,7 @@
   <!-- ============ 06 · ERRORES COMUNES ============ -->
   <section class="sheet" id="errores">
     <div class="sheet-inner">
-      <p class="ref">06 · Antes de entregar</p>
+      <p class="ref">08 · Antes de entregar</p>
       <h2>Errores comunes a evitar</h2>
       <div class="tablewrap">
         <table>
@@ -626,6 +724,173 @@ function showIdea(i){
      <p>Tipo · ${esc(idea.tipo)}</p>
      <p class="ex ${idea.ok?'ok':''}">${esc(idea.just)}</p>`;
 }
+
+/* ============================================================
+   Matriz de decisión ponderada
+   ============================================================ */
+const CRITS = [
+  {id:"disp", name:"Disponibilidad lograda"},
+  {id:"costo", name:"Costo total"},
+  {id:"comp", name:"Complejidad operativa"},
+  {id:"tiempo", name:"Tiempo de implementación"}
+];
+const OPTS = [
+  {id:"A", name:"A · Activo-pasivo con failover", s:[4,4,4,3], why:[
+    "Conmuta automáticamente ante falla; queda una ventana de conmutación de ~30-60 s, no cero.",
+    "Segunda instancia pasiva ≈ +USD 400/mes sobre el balanceador actual; rango 100-500 puntúa 4.",
+    "Un componente nuevo con procedimiento de failover simple.",
+    "4-6 semanas de aprovisionamiento y pruebas de failover."]},
+  {id:"B", name:"B · Activo-activo", s:[5,2,2,2], why:[
+    "Sin ventana de conmutación: ambos atienden tráfico.",
+    "Dos activos + almacén de sesión compartido ≈ +USD 1.100/mes; rango 800-1.200 puntúa 2.",
+    "Sincronización de sesiones y pruebas de balanceo continuas.",
+    "8-10 semanas."]},
+  {id:"C", name:"C · Único balanceador + monitoreo", s:[1,5,5,5], why:[
+    "No elimina el punto único de falla, solo acorta el tiempo de detección.",
+    "≈ +USD 60/mes de monitoreo.",
+    "No hay nada nuevo que operar.",
+    "Menos de 1 semana."]}
+];
+const PRESETS = {negocio:[35,25,20,20], costo:[15,35,25,25]};
+const DM = {w:PRESETS.negocio.slice(), elim:false, cell:null};
+
+function fmt(n){ return n.toFixed(2).replace(".",","); }
+function pcts(w){ const t=w.reduce((a,b)=>a+b,0); return w.map(x=> t>0 ? x/t*100 : 0); }
+function dmTotals(w){
+  const p = pcts(w);
+  return OPTS.map(o=> Math.round(o.s.reduce((a,s,i)=>a+s*p[i]/100,0)*10000)/10000);
+}
+
+function buildSliders(){
+  document.getElementById("dmSliders").innerHTML = CRITS.map((c,i)=>
+    `<div class="slider-row"><label for="dmw${i}"><span>${esc(c.name)}</span><span class="pct" id="dmp${i}"></span></label>
+     <input type="range" id="dmw${i}" min="0" max="100" step="1" value="${DM.w[i]}" data-i="${i}"></div>`).join("");
+  document.querySelectorAll("#dmSliders input").forEach(inp=>{
+    inp.addEventListener("input", ()=>{ DM.w[+inp.dataset.i] = +inp.value; renderDM(); });
+  });
+}
+
+function renderDM(){
+  const p = pcts(DM.w), tot = dmTotals(DM.w);
+  CRITS.forEach((c,i)=>{
+    document.getElementById("dmw"+i).value = DM.w[i];
+    document.getElementById("dmp"+i).textContent = "peso " + DM.w[i] + " → " + p[i].toFixed(1).replace(".",",") + " %";
+  });
+  document.querySelectorAll("[data-preset]").forEach(b=>{
+    b.setAttribute("aria-pressed", String(PRESETS[b.dataset.preset].join()===DM.w.join()));
+  });
+  document.getElementById("dmElim").setAttribute("aria-pressed", String(DM.elim));
+
+  const out = OPTS.map(o=> DM.elim && o.s[0] < 3);
+  let best = -1;
+  tot.forEach((t,i)=>{ if(!out[i] && (best<0 || t>tot[best])) best = i; });
+  const topAll = tot.indexOf(Math.max(...tot));
+  document.getElementById("dmWarn").hidden = !(OPTS[topAll].id==="C" && !DM.elim);
+
+  /* ranking */
+  const order = OPTS.map((o,i)=>i).sort((a,b)=>{
+    if(out[a]!==out[b]) return out[a]?1:-1;
+    return tot[b]-tot[a];
+  });
+  document.getElementById("dmBars").innerHTML = order.map(i=>{
+    const cls = (out[i]?" out":"") + (i===best?" best":"");
+    const tag = out[i] ? `<span class="tag no">descartada</span>` : (i===best ? `<span class="tag">mejor opción</span>` : "");
+    return `<div class="brow${cls}" role="listitem"><span class="bname">${esc(OPTS[i].name)}${tag}</span>
+      <div class="track"><div class="fill" style="width:${(tot[i]/5*100).toFixed(1)}%"></div></div>
+      <span class="val">${fmt(tot[i])} / 5</span></div>`;
+  }).join("");
+
+  /* tabla */
+  let h = `<thead><tr><th>Opción</th>` + CRITS.map((c,i)=>`<th>${esc(c.name)}<br><span style="font-weight:400">peso ${p[i].toFixed(1).replace(".",",")} %</span></th>`).join("") + `<th>Total</th></tr></thead><tbody>`;
+  OPTS.forEach((o,oi)=>{
+    h += `<tr class="${out[oi]?"out":""}"><td><span class="optname">${esc(o.name)}</span>${out[oi]?` <span class="tag no">no cumple Disp. ≥ 3</span>`:""}</td>`;
+    o.s.forEach((s,ci)=>{
+      const sel = DM.cell && DM.cell.o===oi && DM.cell.c===ci;
+      h += `<td><button type="button" class="cellbtn" aria-pressed="${sel}" data-o="${oi}" data-c="${ci}" aria-label="${esc(o.id+", "+CRITS[ci].name+": puntaje "+s)}">${s} <span class="ws">(${fmt(s*p[ci]/100)})</span></button></td>`;
+    });
+    h += `<td><strong>${fmt(tot[oi])}</strong></td></tr>`;
+  });
+  h += `</tbody>`;
+  document.getElementById("dmTable").innerHTML = h;
+  document.querySelectorAll(".cellbtn").forEach(b=>{
+    b.addEventListener("click", ()=>{
+      DM.cell = {o:+b.dataset.o, c:+b.dataset.c};
+      renderDM();
+      const again = document.querySelector(`.cellbtn[data-o="${DM.cell.o}"][data-c="${DM.cell.c}"]`);
+      if(again) again.focus();
+    });
+  });
+  renderDMDetail();
+}
+
+function renderDMDetail(){
+  const el = document.getElementById("dmDetail");
+  if(!DM.cell){ el.innerHTML = `<p class="note" style="margin:0">Seleccione una celda de la tabla para ver por qué recibió ese puntaje.</p>`; return; }
+  const o = OPTS[DM.cell.o], c = CRITS[DM.cell.c];
+  el.innerHTML = `<h3>${esc(o.name)} · ${esc(c.name)}: ${o.s[DM.cell.c]} de 5</h3><p class="ex ok" style="font-family:var(--sans);font-size:15px;margin:0">${esc(o.why[DM.cell.c])}</p>`;
+}
+
+document.querySelectorAll("[data-preset]").forEach(b=>{
+  b.addEventListener("click", ()=>{ DM.w = PRESETS[b.dataset.preset].slice(); renderDM(); });
+});
+document.getElementById("dmElim").addEventListener("click", ()=>{ DM.elim = !DM.elim; renderDM(); });
+buildSliders();
+renderDM();
+
+/* ============================================================
+   Mapa de capacidades
+   ============================================================ */
+const WPS = {
+  WP1:{name:"WP1 · Continuidad de la plataforma", tipo:"Quick win · 4-6 semanas", brechas:["Balanceador redundante activo-pasivo"]},
+  WP2:{name:"WP2 · Rutas y datos regionales", tipo:"Largo plazo", brechas:["Módulo de rutas en Medellín","BD particionada por región"]}
+};
+const CAPS = [
+  {n:"Capacidad 1", t:"Recepción y registro de envíos", asis:4, tobe:4,
+   desc:"Captura y registro de los envíos de clientes y operadores.",
+   gaps:[], wp:null, nota:"Sin brecha: la madurez actual ya cubre el objetivo."},
+  {n:"Capacidad 2", t:"Planeación y asignación de rutas", asis:2, tobe:4,
+   desc:"Asignación de rutas y paquetes a mensajeros; hoy Medellín depende del motor de rutas de Bogotá.",
+   gaps:["Región Medellín sin módulo de rutas propio (límite de escalabilidad geográfica)"], wp:"WP2"},
+  {n:"Capacidad 3", t:"Seguimiento en tiempo real", asis:3, tobe:4,
+   desc:"Rastreo del estado y la ubicación de cada envío para usuarios y operadores.",
+   gaps:["Base de datos con escritura única en Bogotá (cuello de botella de latencia)"], wp:"WP2"},
+  {n:"Capacidad 4", t:"Notificación y atención al cliente", asis:3, tobe:3,
+   desc:"Comunicación proactiva con el cliente y canales de consulta.",
+   gaps:[], wp:null, nota:"Sin brecha en esta iteración: las ideas #4 y #7 quedan en backlog."},
+  {n:"Capacidad 5", t:"Continuidad operativa de la plataforma", asis:2, tobe:4,
+   desc:"Capacidad de la plataforma para seguir operando ante fallas y picos de demanda.",
+   gaps:["Balanceador de carga de instancia única (punto único de falla)"], wp:"WP1"}
+];
+let capSel = 0;
+
+function renderCaps(){
+  const chain = document.getElementById("capChain");
+  chain.innerHTML = "";
+  CAPS.forEach((c,i)=>{
+    const b = document.createElement("button");
+    b.type = "button";
+    b.setAttribute("aria-pressed", String(i===capSel));
+    b.innerHTML = `<span class="cn">${esc(c.n)} · ${c.asis}→${c.tobe}</span><span class="ct">${esc(c.t)}</span>`;
+    b.addEventListener("click", ()=>{ capSel = i; renderCaps(); chain.children[i].focus(); });
+    chain.appendChild(b);
+  });
+  const c = CAPS[capSel];
+  let d = `<h3>${esc(c.t)}</h3><p>${esc(c.desc)}</p><p>Madurez AS-IS ${c.asis} → TO-BE ${c.tobe}.</p>`;
+  if(c.gaps.length){
+    const w = WPS[c.wp];
+    d += `<p><strong>Brechas que la afectan:</strong></p><ul style="margin:0 0 10px;font-size:15px;color:var(--ink-soft)">${c.gaps.map(g=>`<li>${esc(g)}</li>`).join("")}</ul>
+      <p class="ex ok"><strong>${esc(w.name)}</strong> (${esc(w.tipo)}). Cierra: ${w.brechas.map(esc).join(" + ")}.</p>`;
+  } else {
+    d += `<p class="ex ok">${esc(c.nota)}</p>`;
+  }
+  document.getElementById("capDetail").innerHTML = d;
+
+  document.getElementById("capBars").innerHTML = CAPS.map((k,i)=>
+    `<div class="mat-row${i===capSel?" sel":""}"><div><strong>${esc(k.t)}</strong><br><span class="ref">${k.wp?esc(k.wp):"sin paquete"}</span></div>
+     <div><div class="mb"><span>AS-IS</span><div class="mt"><div class="mf asis" style="width:${k.asis/5*100}%"></div></div><span>${k.asis}/5</span></div>
+     <div class="mb"><span>TO-BE</span><div class="mt"><div class="mf tobe" style="width:${k.tobe/5*100}%"></div></div><span>${k.tobe}/5</span></div></div></div>`).join("");
+}
+renderCaps();
 
 /* arranque */
 renderDiagram();
