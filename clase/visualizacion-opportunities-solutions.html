@@ -412,7 +412,7 @@
         <div class="block controlline"><h3>Plateau · TO-BE 2027</h3><p>Balanceador redundante, BD particionada.</p></div>
       </div>
 
-      <p class="note" style="margin-top:16px">La matriz de brechas de la sección anterior <strong>es</strong>, en el fondo, una lista de elementos <code>Gap</code>: cada fila conecta un <code>Plateau</code> AS-IS (lo diagnosticado en los Talleres 3-6) con un <code>Plateau</code> TO-BE (lo que este taller propone). Esos mismos <code>Gap</code> son los que el Taller 9 convierte en <code>Work Package</code> dentro del Plan de Implementación — la cadena completa es: <strong>Constraint/Requirement (Talleres 5-6) → Gap (este taller) → Work Package (Taller 9) → nuevo Plateau</strong>.</p>
+      <p class="note" style="margin-top:16px">La matriz de brechas de la sección 04 <strong>es</strong>, en el fondo, una lista de elementos <code>Gap</code>: cada fila conecta un <code>Plateau</code> AS-IS (lo diagnosticado en los Talleres 3-6) con un <code>Plateau</code> TO-BE (lo que este taller propone). Esos mismos <code>Gap</code> son los que el Taller 9 convierte en <code>Work Package</code> dentro del Plan de Implementación — la cadena completa es: <strong>Constraint/Requirement (Talleres 5-6) → Gap (este taller) → Work Package (Taller 9) → nuevo Plateau</strong>.</p>
     </div>
   </section>
 
@@ -739,7 +739,7 @@ const OPTS = [
     "Conmuta automáticamente ante falla; queda una ventana de conmutación de ~30-60 s, no cero.",
     "Segunda instancia pasiva ≈ +USD 400/mes sobre el balanceador actual; rango 100-500 puntúa 4.",
     "Un componente nuevo con procedimiento de failover simple.",
-    "4-6 semanas de aprovisionamiento y pruebas de failover."]},
+    "6 semanas de implementación (las 2 semanas de pruebas de failover se suman aparte, Paso 2 de la guía)."]},
   {id:"B", name:"B · Activo-activo", s:[5,2,2,2], why:[
     "Sin ventana de conmutación: ambos atienden tráfico.",
     "Dos activos + almacén de sesión compartido ≈ +USD 1.100/mes; rango 800-1.200 puntúa 2.",
@@ -841,7 +841,7 @@ renderDM();
    Mapa de capacidades
    ============================================================ */
 const WPS = {
-  WP1:{name:"WP1 · Continuidad de la plataforma", tipo:"Quick win · 4-6 semanas", brechas:["Balanceador redundante activo-pasivo"]},
+  WP1:{name:"WP1 · Continuidad de la plataforma", tipo:"Quick win · 8 semanas (6 de implementación + 2 de pruebas)", brechas:["Balanceador redundante activo-pasivo"]},
   WP2:{name:"WP2 · Rutas y datos regionales", tipo:"Largo plazo", brechas:["Módulo de rutas en Medellín","BD particionada por región"]}
 };
 const CAPS = [

@@ -15,7 +15,7 @@ Los diagramas de ejemplo están escritos en [Mermaid](https://mermaid.js.org/) y
 | Funcional / Aplicaciones | Taller 3 (C1/C2 AS-IS) | Falta un contenedor que resuelva una limitación del sistema actual |
 | Técnica / Infraestructura | Taller 4 (mapa + diagnóstico) | Punto único de falla, cuello de botella, límite de escalabilidad |
 | Seguridad | Taller 5 (STRIDE) | Amenaza identificada sin mitigación implementada |
-| Cumplimiento | Taller 6 (checklist normativo) | Ítem marcado como "Brecha" en el checklist |
+| Cumplimiento | Taller 6 (checklist normativo) | Ítem en estado Parcial, registrado en la tabla de Brechas Identificadas |
 
 Una brecha real siempre se puede señalar en un entregable anterior. Si no puede decir de qué taller salió, probablemente no es una brecha sino una opinión.
 
@@ -140,7 +140,7 @@ Incluir C no es relleno: obliga a que A y B demuestren que valen su costo frente
 
 | Opción | Disponibilidad | Costo | Complejidad | Tiempo |
 |---|---|---|---|---|
-| A · Activo-pasivo | **4** — conmuta solo, pero con una ventana de 30-60 s (no cero) | **4** — +USD 400/mes cae en el rango 100-500 | **4** — un componente nuevo con un procedimiento de failover simple | **3** — 4-6 semanas de aprovisionamiento y pruebas |
+| A · Activo-pasivo | **4** — conmuta solo, pero con una ventana de 30-60 s (no cero) | **4** — +USD 400/mes cae en el rango 100-500 | **4** — un componente nuevo con un procedimiento de failover simple | **3** — 6 semanas de implementación (las 2 semanas de pruebas de failover se suman aparte, Paso 2) |
 | B · Activo-activo | **5** — sin ventana de conmutación: ambos atienden tráfico | **2** — +USD 1.100/mes cae en el rango 800-1.200 | **2** — sincronizar sesiones y probar el balanceo continuamente | **2** — 8-10 semanas |
 | C · Único + monitoreo | **1** — no elimina el punto único de falla, solo acorta el tiempo de detección | **5** — +USD 60/mes | **5** — no hay nada nuevo que operar | **5** — menos de 1 semana |
 
@@ -359,7 +359,7 @@ Una capacidad la soportan varios procesos y varias aplicaciones, y **sobrevive**
 
 | Paquete de trabajo | Brechas que incluye | Capacidad que mejora | Tipo |
 |---|---|---|---|
-| WP1 · Continuidad de la plataforma | Balanceador redundante activo-pasivo (decisión de 2.1) | Continuidad operativa (2 → 4) | Quick win · 4-6 semanas |
+| WP1 · Continuidad de la plataforma | Balanceador redundante activo-pasivo (decisión de 2.1) | Continuidad operativa (2 → 4) | Quick win · 8 semanas (6 de implementación + 2 de pruebas) |
 | WP2 · Rutas y datos regionales | Módulo de rutas en Medellín + BD particionada por región | Planeación y asignación de rutas (2 → 4) y Seguimiento en tiempo real (3 → 4) | Largo plazo |
 
 ```mermaid

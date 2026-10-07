@@ -54,7 +54,7 @@ De la lista anterior, seleccione **2-3 ideas** y justifique por qué, distinguie
 > Presupuesto sugerido: **~2 páginas** (los diagramas completos pueden ir como anexo).
 
 ### 3.1 Proceso mejorado
-_¿Cómo se transforma el proceso actual en uno más ágil o seguro? (BPMN o diagrama simple; referencie el anexo si aplica)._
+_¿Cómo se transforma el proceso actual en uno más ágil o seguro? Resuma aquí el cambio y referencie el BPMN completo en el anexo `to-be-proceso.drawio` (obligatorio)._
 
 ### 3.2 Cambios en aplicaciones, infraestructura y flujos de información
 _¿Qué cambios se introducen? (ArchiMate/C4; referencie `to-be-aplicaciones-final.drawio` y `to-be-tecnologia-final.drawio` en anexos)._
@@ -76,6 +76,8 @@ _¿Qué controles de seguridad del Taller 5 se integran en este TO-BE?_
 ---
 
 ## Anexos
+- Proceso mejorado (BPMN): `entrega/to-be-proceso.drawio`
+- Matriz de decisión ponderada: `entrega/matriz-decision.md` (una por cada brecha priorizada con más de una solución posible)
 - Diagrama TO-BE de Aplicaciones: `entrega/to-be-aplicaciones-final.drawio`
 - Diagrama TO-BE de Tecnología: `entrega/to-be-tecnologia-final.drawio`
 - Matriz de brechas (Gap Analysis): `entrega/matriz-brechas.xlsx`
