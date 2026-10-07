@@ -8,7 +8,7 @@ Proponer la arquitectura objetivo (TO-BE) de Aplicaciones y de Tecnología del c
 
 ## Guía paso a paso
 
-Antes de proponer el TO-BE, revise la [**Guía Paso a Paso: Opportunities & Solutions**](clase/guia_paso_a_paso_opportunities_solutions.md). Incluye qué cuenta como una brecha válida en este taller, la metodología en 4 partes (Diagnóstico inicial → Propuesta de mejoras → Visualización TO-BE → Análisis de beneficios y riesgos, siguiendo la actividad oficial de mejora de arquitectura del curso), un ejemplo completo construido paso a paso sobre el AS-IS de RedExpress ya trabajado en los Talleres 3 y 4, y una tabla de errores comunes. Además incluye tres apoyos para decidir: la **matriz de decisión ponderada** (sección 2.1, con el marco de 8 pasos), el uso de la **IA como copiloto de la decisión** (sección 2.2) y la agrupación de brechas por **capacidad de negocio** en paquetes de trabajo (sección 4.1). Para la clase hay también una presentación (`7. Oportunidades_Soluciones.pptx`) que sigue el hilo contexto, armar la solución y tomar la decisión.
+Antes de proponer el TO-BE, revise la [**Guía Paso a Paso: Opportunities & Solutions**](clase/guia_paso_a_paso_opportunities_solutions.md). Incluye qué cuenta como una brecha válida en este taller, la metodología en 4 partes (Diagnóstico inicial → Propuesta de mejoras → Visualización TO-BE → Análisis de beneficios y riesgos, siguiendo la actividad oficial de mejora de arquitectura del curso), un ejemplo completo construido paso a paso sobre el AS-IS de RedExpress ya trabajado en los Talleres 3 y 4, y una tabla de errores comunes. Además incluye tres apoyos para decidir: la **matriz de decisión ponderada** (sección 2.1, con el marco de 8 pasos), el uso de la **IA como copiloto de la decisión** (sección 2.2) y la agrupación de brechas por **capacidad de negocio** en paquetes de trabajo (sección 4.1). Para la clase hay también una presentación ([`7. Oportunidades_Soluciones.pptx`](7.%20Oportunidades_Soluciones.pptx), versión para estudiantes, sin notas del orador) que sigue el hilo contexto, armar la solución y tomar la decisión.
 
 ### Versión visual: Opportunities & Solutions
 
@@ -30,7 +30,7 @@ Este taller no introduce un cliente ficticio nuevo: retoma el C1/C2 de RedExpres
 
 Durante la clase se espera que el equipo:
 
-Siga la metodología en 4 partes de la [guía paso a paso](clase/guia_paso_a_paso_opportunities_solutions.md) sobre el AS-IS de RedExpress:
+Siga la metodología en 4 partes de la [guía paso a paso](clase/guia_paso_a_paso_opportunities_solutions.md) **sobre el AS-IS de su cliente real**. El ejemplo guiado de RedExpress de la guía (y su visualización) muestra cada paso resuelto: úselo como referencia, no como el caso a trabajar:
 
 1. **Diagnóstico inicial**: consolide los hallazgos del AS-IS (Talleres 3 y 4, y en su cliente real también 5 y 6) respondiendo las tres preguntas orientadoras (fricción, problemas recurrentes, vulnerabilidades/riesgos).
 2. **Propuesta de mejoras**: haga una lluvia de ideas de al menos 6 mejoras y priorice 2-3 con justificación, distinguiendo quick wins de mejoras de mayor impacto o largo plazo. Para cada brecha con más de una solución posible, decida con una **matriz de decisión ponderada** (criterios con pesos definidos por el negocio, puntajes justificados, análisis de sensibilidad y trade-off aceptado; [sección 2.1 de la guía](clase/guia_paso_a_paso_opportunities_solutions.md)). Si usa una herramienta de IA como copiloto (ideas, borrador de puntajes, "abogado del diablo"), siga las reglas de la [sección 2.2](clase/guia_paso_a_paso_opportunities_solutions.md) y use la [biblioteca de prompts](plantillas/prompts_ia_decision.md): la IA propone, el equipo verifica, justifica y decide.
@@ -48,9 +48,13 @@ Después de la clase, el equipo debe:
 
 - Consolidar las brechas técnicas (Talleres 3 y 4), de seguridad (Taller 5) y de cumplimiento (Taller 6) identificadas para su cliente real.
 - Proponer el TO-BE de Aplicaciones y de Tecnología del cliente, extendiendo sus propios entregables de los Talleres 3 y 4, y guardar los diagramas como anexos en `entrega/to-be-aplicaciones-final.drawio` y `entrega/to-be-tecnologia-final.drawio`.
-- Construir la matriz de brechas priorizada en `entrega/matriz-brechas.xlsx` (también como anexo).
-- Redactar el documento único en `entrega/mejora-arquitectura.md` usando la [plantilla de mejora de arquitectura](plantillas/plantilla_mejora_arquitectura.md), siguiendo las 4 partes de la guía (Diagnóstico → Propuesta de mejoras → Visualización TO-BE → Beneficios y riesgos) y referenciando los anexos anteriores. Este es el equivalente en Markdown del documento oficial de la actividad (máx. 6 páginas + anexos); el equipo puede redactar aquí en Markdown y exportar a PDF con el nombre `EquipoX_Mejora_Arquitectura.pdf` para la entrega formal, si el docente lo pide aparte.
+- Modelar el proceso mejorado (TO-BE del proceso del Taller 1) en `entrega/to-be-proceso.drawio` (BPMN), como anexo.
+- Documentar en `entrega/matriz-decision.md` la matriz de decisión ponderada de cada brecha priorizada que tenga más de una solución posible, usando la [plantilla de matriz de decisión](plantillas/plantilla_matriz_decision.md) (sección 2.1 de la guía), como anexo.
+- Construir la matriz de brechas priorizada en `entrega/matriz-brechas.xlsx` (también como anexo), usando la [plantilla de matriz de brechas](plantillas/plantilla_matriz_brechas.xlsx): trae las hojas de brechas, capacidades y paquetes de trabajo de la Parte 4 de la guía.
+- Redactar el documento único en `entrega/mejora-arquitectura.md` usando la [plantilla de mejora de arquitectura](plantillas/plantilla_mejora_arquitectura.md), siguiendo las 4 partes de la guía (Diagnóstico → Propuesta de mejoras → Visualización TO-BE → Beneficios y riesgos) y referenciando los anexos anteriores. Este es el equivalente en Markdown del documento oficial de la actividad (máx. 6 páginas + anexos); el equipo redacta aquí en Markdown y **además** lo exporta a PDF con el nombre `EquipoX_Mejora_Arquitectura.pdf` (obligatorio), que también se sube a `entrega/`.
 - Investigar patrones de solución reales para brechas similares en el sector del cliente, y registrar las fuentes en `entrega/referencias.md` con la [plantilla de referencias](plantillas/plantilla_referencias.md).
+
+En el repositorio del proyecto del equipo (`AREM-EquipoX-NombreCliente`, ver [`AREM-Proyecto-Cliente`](https://github.com/CesarAVegaF312/AREM-Proyecto-Cliente)) estos entregables van dentro de `07-opportunities-solutions/`. El Taller 7 se califica en el **Corte 3**: pesa el 25% del corte y se evalúa con la rúbrica de este taller. Se muestra en la presentación final del **sábado 14/11**, y su versión final ajustada se entrega hasta el **martes 17/11**, el mismo plazo del paquete final (ver [Sustentación final y evaluación del Corte 3](https://github.com/CesarAVegaF312/AREM-Taller_9_Presentacion_Final#sustentación-final-y-evaluación-del-corte-3) en el README del Taller 9).
 
 ---
 
@@ -65,13 +69,17 @@ taller-07-opportunities-solutions/
 │   ├── to-be-borrador.drawio
 │   └── notas.md                                      # Ver plantillas/plantilla_notas.md
 ├── entrega/
+│   ├── to-be-proceso.drawio                           # Anexo: proceso mejorado (BPMN)
 │   ├── to-be-aplicaciones-final.drawio                # Anexo: referenciado desde mejora-arquitectura.md
 │   ├── to-be-tecnologia-final.drawio                  # Anexo: referenciado desde mejora-arquitectura.md
 │   ├── matriz-brechas.xlsx                            # Anexo: referenciado desde mejora-arquitectura.md
-│   ├── mejora-arquitectura.md                         # Ver plantillas/plantilla_mejora_arquitectura.md — exportar a PDF como EquipoX_Mejora_Arquitectura.pdf
+│   ├── matriz-decision.md                             # Anexo: ver plantillas/plantilla_matriz_decision.md
+│   ├── mejora-arquitectura.md                         # Ver plantillas/plantilla_mejora_arquitectura.md
+│   ├── EquipoX_Mejora_Arquitectura.pdf                # Obligatorio: el mismo documento exportado a PDF
 │   └── referencias.md                                 # Ver plantillas/plantilla_referencias.md
 └── plantillas/
     ├── plantilla_mejora_arquitectura.md               # Plantilla principal de entrega de este taller
+    ├── plantilla_matriz_brechas.xlsx                  # Brechas, capacidades y paquetes de trabajo (anexo)
     ├── plantilla_matriz_decision.md                   # Matriz de decisión ponderada (una por brecha con varias soluciones)
     ├── prompts_ia_decision.md                         # 12 prompts para usar IA como copiloto (uno por paso del método)
     ├── plantilla_informe_taller.md
@@ -88,9 +96,9 @@ Antes de entregar, compare su TO-BE y su matriz contra los errores más frecuent
 ## Entregables
 
 - Documento único de mejora de arquitectura (`entrega/mejora-arquitectura.md`), máx. 6 páginas + anexos, siguiendo las 4 partes: Diagnóstico inicial, Propuesta de mejoras, Visualización TO-BE, Análisis de beneficios y riesgos.
-- Anexos: Modelo TO-BE de Aplicaciones (extensión del C2 del Taller 3), Modelo TO-BE de Tecnología (extensión del mapa del Taller 4) y Matriz de brechas (Gap Analysis) priorizada.
+- Anexos: Proceso mejorado en BPMN (`to-be-proceso.drawio`), Modelo TO-BE de Aplicaciones (extensión del C2 del Taller 3), Modelo TO-BE de Tecnología (extensión del mapa del Taller 4), Matriz de decisión ponderada (`matriz-decision.md`) y Matriz de brechas (Gap Analysis) priorizada.
 - Referencias e investigación complementaria.
-- Para la entrega formal ante el docente, exportar el documento como PDF con nombre `EquipoX_Mejora_Arquitectura.pdf`.
+- El documento exportado como PDF con nombre `EquipoX_Mejora_Arquitectura.pdf` (obligatorio).
 
 ---
 
