@@ -337,15 +337,15 @@ Hasta aquí las brechas están listadas una por una. Pero el negocio no piensa e
 
 | Concepto | Pregunta que responde | Ejemplo en RedExpress | Dónde ya lo construyó |
 |---|---|---|---|
-| Capacidad | ¿Qué debe saber hacer la empresa? (verbo + objeto, sin tecnología) | Planear y asignar rutas | Ficha del cliente, Taller 0 (procesos clave) |
+| Capacidad | ¿Qué debe saber hacer la empresa? (verbo + objeto, sin tecnología) | Planear y asignar rutas | Tabla de capacidades de la Visión, Taller 0 (derivada de los procesos clave de la Ficha) |
 | Proceso | ¿Cómo se hace, paso a paso, y quién lo hace? | «Asignar ruta a un mensajero» (diagrama BPMN) | Taller 1 |
 | Aplicación | ¿Qué sistema lo soporta? | Motor de Rutas (contenedor C2) | Taller 3 |
 
 Una capacidad la soportan varios procesos y varias aplicaciones, y **sobrevive** aunque cambien las herramientas: RedExpress seguirá necesitando "planear y asignar rutas" aunque reemplace el Motor de Rutas. Por eso es la unidad correcta para hablar de mejora con el negocio.
 
-**Paso 1 — Liste 5 a 8 capacidades** a partir de los procesos clave de su ficha de cliente (Taller 0). Nómbrelas con verbo + objeto. Si su lista tiene nombres de sistemas ("CRM", "ERP"), está listando aplicaciones, no capacidades.
+**Paso 1 — Parta de las capacidades de la Visión del Taller 0** (de 5 a 8, con verbo + objeto) y ajústelas con lo que aprendió en los Talleres 1 a 6: una capacidad que resultó ser dos, una que no existía, una que el cliente nombra distinto. Registre qué cambió frente al Taller 0 y por qué; no las invente de nuevo. Si su lista tiene nombres de sistemas ("CRM", "ERP"), está listando aplicaciones, no capacidades.
 
-**Paso 2 — Evalúe la madurez de cada capacidad hoy (AS-IS) y la que se espera tras las mejoras (TO-BE)**, en una escala 1-5 (1 = se hace de forma ad hoc y frágil · 3 = funciona pero con fallas conocidas · 5 = fiable, medida y escalable). La puntuación del AS-IS se justifica con los hallazgos de los Talleres 3-6, no con impresión.
+**Paso 2 — Evalúe la madurez de cada capacidad hoy (AS-IS) y la que se espera tras las mejoras (TO-BE)**, en una escala 1-5 (1 = se hace de forma ad hoc y frágil · 3 = funciona pero con fallas conocidas · 5 = fiable, medida y escalable). El soporte tecnológico alto / medio / bajo que anotó en el Taller 0 fue una primera impresión tomada de lo que dijo el cliente; la madurez AS-IS de aquí se justifica con los hallazgos de los Talleres 3-6, no con impresión. Si las dos valoraciones no coinciden, eso también es información: diga qué hallazgo cambió la lectura.
 
 | Capacidad | Madurez AS-IS | Madurez TO-BE | Qué la explica |
 |---|---|---|---|
