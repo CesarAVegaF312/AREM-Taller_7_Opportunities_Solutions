@@ -1,0 +1,84 @@
+# Prueba de concepto de la opción A del ejemplo guiado (Taller 7):
+# balanceador activo-pasivo con failover automático para RedExpress.
+#
+# Dos balanceadores (principal y respaldo) comparten una IP virtual (VIP).
+# Keepalived decide cuál de los dos la tiene; si el principal cae, el
+# respaldo la toma. El medidor consulta la VIP cinco veces por segundo y
+# muestra cada falla, para medir la ventana de conmutación real.
+#
+#   docker compose up -d
+#   docker compose logs -f medidor            # en otra terminal
+#   docker compose stop balanceador-principal # simula la caída
+#   docker compose down
+services:
+  # Servicio de la plataforma que está detrás del balanceador (simulador).
+  plataforma:
+    image: traefik/whoami:v1.10
+    networks: [red]
+
+  balanceador-principal:
+    image: nginx:1.27-alpine
+    environment:
+      NOMBRE: principal
+    volumes:
+      - ./balanceador.conf.template:/etc/nginx/templates/default.conf.template:ro
+    networks:
+      red:
+        ipv4_address: 172.30.77.11
+    depends_on: [plataforma]
+
+  balanceador-respaldo:
+    image: nginx:1.27-alpine
+    environment:
+      NOMBRE: respaldo
+    volumes:
+      - ./balanceador.conf.template:/etc/nginx/templates/default.conf.template:ro
+    networks:
+      red:
+        ipv4_address: 172.30.77.12
+    depends_on: [plataforma]
+
+  # Keepalived corre junto a cada balanceador (comparte su red) y mueve la VIP.
+  keepalived-principal:
+    image: osixia/keepalived:2.0.20
+    network_mode: "service:balanceador-principal"
+    cap_add: [NET_ADMIN, NET_BROADCAST, NET_RAW]
+    environment:
+      KEEPALIVED_INTERFACE: eth0
+      KEEPALIVED_STATE: MASTER
+      KEEPALIVED_PRIORITY: "150"
+      KEEPALIVED_UNICAST_PEERS: "#PYTHON2BASH:['172.30.77.12']"
+      KEEPALIVED_VIRTUAL_IPS: "#PYTHON2BASH:['172.30.77.100']"
+    depends_on: [balanceador-principal]
+
+  keepalived-respaldo:
+    image: osixia/keepalived:2.0.20
+    network_mode: "service:balanceador-respaldo"
+    cap_add: [NET_ADMIN, NET_BROADCAST, NET_RAW]
+    environment:
+      KEEPALIVED_INTERFACE: eth0
+      KEEPALIVED_STATE: BACKUP
+      KEEPALIVED_PRIORITY: "100"
+      KEEPALIVED_UNICAST_PEERS: "#PYTHON2BASH:['172.30.77.11']"
+      KEEPALIVED_VIRTUAL_IPS: "#PYTHON2BASH:['172.30.77.100']"
+    depends_on: [balanceador-respaldo]
+
+  # Medidor: consulta la VIP cada 0,2 s y escribe OK o FALLA con la hora exacta.
+  medidor:
+    image: curlimages/curl:8.11.1
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        while true; do
+          r=$$(curl -s -m 1 -D - -o /dev/null http://172.30.77.100/ | grep -i '^x-balanceador' | tr -d '\r')
+          if [ -n "$$r" ]; then echo "$$(date +%T) OK    $$r"; else echo "$$(date +%T) FALLA"; fi
+          sleep 0.2
+        done
+    networks: [red]
+    depends_on: [keepalived-principal, keepalived-respaldo]
+
+networks:
+  red:
+    ipam:
+      config:
+        - subnet: 172.30.77.0/24

@@ -1,0 +1,10 @@
+# Balanceador de RedExpress: reenvía todo a la plataforma e identifica
+# qué instancia (principal o respaldo) atendió la solicitud.
+server {
+    listen 80;
+
+    location / {
+        add_header X-Balanceador "${NOMBRE}" always;
+        proxy_pass http://plataforma;
+    }
+}
