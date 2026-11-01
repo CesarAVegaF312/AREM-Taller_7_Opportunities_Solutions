@@ -82,6 +82,7 @@ taller-07-opportunities-solutions/
 │   ├── matriz-decision.md                             # Anexo: ver plantillas/plantilla_matriz_decision.md
 │   ├── mejora-arquitectura.md                         # Ver plantillas/plantilla_mejora_arquitectura.md
 │   ├── EquipoX_Mejora_Arquitectura.pdf                # Obligatorio: el mismo documento exportado a PDF
+│   ├── analisis-caso.md                               # Opcional: ver plantillas/plantilla_analisis_caso.md
 │   └── referencias.md                                 # Ver plantillas/plantilla_referencias.md
 └── plantillas/
     ├── plantilla_mejora_arquitectura.md               # Plantilla principal de entrega de este taller
@@ -90,6 +91,7 @@ taller-07-opportunities-solutions/
     ├── prompts_ia_decision.md                         # 12 prompts para usar IA como copiloto (uno por paso del método)
     ├── plantilla_informe_taller.md
     ├── plantilla_notas.md
+    ├── plantilla_analisis_caso.md
     └── plantilla_referencias.md
 ```
 
