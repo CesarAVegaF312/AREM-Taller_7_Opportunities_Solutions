@@ -56,6 +56,14 @@ En el repositorio del proyecto del equipo (`AREM-EquipoX-NombreCliente`, ver [`A
 
 ---
 
+## Validación técnica, análisis de casos y tecnología (opcional)
+
+Para no decidir sobre un supuesto sin evidencia, el equipo puede validar con una prueba de concepto el dato del que más depende la opción ganadora de su matriz de decisión. En el caso base, la opción A (balanceador activo-pasivo) se apoya en una ventana de conmutación estimada en 30 a 60 segundos; la prueba de concepto en Docker apaga el balanceador principal y la mide. No es un ejercicio de programación: la prueba ya está lista en [`clase/validacion-tecnica/`](clase/validacion-tecnica/) y el experimento son tres comandos. El procedimiento está en la [sección 7 de la guía paso a paso](clase/guia_paso_a_paso_opportunities_solutions.md#7-validación-técnica-de-una-decisión-del-to-be-opcional). El resultado se registra en `entrega/mejora-arquitectura.md`, junto a la decisión.
+
+**Análisis de caso real y tecnología.** La [sección 8 de la guía](clase/guia_paso_a_paso_opportunities_solutions.md#8-análisis-de-caso-real-y-panorama-tecnológico-opcional) analiza la migración tecnológica de TSB Bank (Reino Unido, 2018), que dejó a sus clientes con fallas durante meses y terminó en multas de los reguladores, y presenta el panorama de estrategias de migración (las 7 R), SaaS, low-code y servicios de IA. El equipo analiza un caso del sector de su cliente con la [plantilla de análisis de caso](plantillas/plantilla_analisis_caso.md) en `entrega/analisis-caso.md`.
+
+---
+
 ## Estructura esperada del repositorio
 
 ```text

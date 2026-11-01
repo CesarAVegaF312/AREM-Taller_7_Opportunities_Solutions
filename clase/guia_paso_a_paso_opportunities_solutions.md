@@ -460,4 +460,122 @@ Las capacidades de la sección 4.1 son elementos `Capability` de la capa de **Es
 
 ---
 
+## 7. Validación técnica de una decisión del TO-BE (opcional)
+
+En la matriz de decisión de la sección 2.1, el puntaje de **Disponibilidad** de la opción A (balanceador activo-pasivo) se apoya en un dato que dio el líder de infraestructura: "la conmutación demora entre 30 y 60 s". Es un supuesto, y la decisión depende de él. Esta sección propone **medirlo antes de comprometerse**: se levanta una prueba de concepto de la opción A en Docker, se apaga el balanceador principal y se cuenta cuántos segundos queda la plataforma sin responder. No es un ejercicio de programación: la prueba ya está lista en [`validacion-tecnica/`](validacion-tecnica/) y el experimento son tres comandos.
+
+### 7.1 Qué se necesita
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (o Docker Engine en Linux).
+- Dos terminales abiertas en la carpeta `clase/validacion-tecnica/`.
+
+### 7.2 Qué contiene la prueba de concepto
+
+| Componente | Qué representa de la opción A |
+|---|---|
+| `balanceador-principal` y `balanceador-respaldo` | Las dos instancias del balanceador (Nginx). Cada respuesta dice cuál de las dos atendió (`X-Balanceador`). |
+| `keepalived-principal` y `keepalived-respaldo` | [Keepalived](https://www.keepalived.org/), el componente que implementa el esquema activo-pasivo: mantiene una IP virtual (VIP) en el balanceador activo y la mueve al respaldo si el activo deja de responder. |
+| `plataforma` | El servicio de RedExpress detrás del balanceador (un simulador). |
+| `medidor` | Consulta la IP virtual cinco veces por segundo y escribe `OK` (con el balanceador que respondió) o `FALLA`, con la hora. |
+
+### 7.3 El experimento
+
+```bash
+# Terminal 1
+docker compose up -d
+docker compose logs -f --no-log-prefix medidor     # deje esta terminal mirando
+
+# Terminal 2
+docker compose stop balanceador-principal          # simula la caída del balanceador activo
+```
+
+En la terminal 1 se verá algo así (resumido: mientras hay servicio salen unas cinco líneas por segundo):
+
+```text
+00:28:21 OK    X-Balanceador: principal
+00:28:22 FALLA
+00:28:23 FALLA
+00:28:24 FALLA
+00:28:25 FALLA
+00:28:26 OK    X-Balanceador: respaldo
+```
+
+**La ventana de conmutación es el número de segundos con `FALLA`.** En las pruebas de esta prueba de concepto fue de 3 a 4 segundos en tres corridas seguidas.
+
+Para ver la opción C (balanceador único, sin respaldo), repita el experimento empezando sin respaldo: `docker compose down`, `docker compose up -d`, luego `docker compose stop balanceador-respaldo` y, ya con un solo balanceador, `docker compose stop balanceador-principal`. Esta vez `FALLA` no se detiene: la plataforma queda caída hasta que alguien la recupere a mano.
+
+Para repetir cualquier experimento, empiece siempre con `docker compose down` y `docker compose up -d` (Keepalived queda atado al balanceador que se detuvo, y reiniciar solo ese contenedor no basta). Al terminar: `docker compose down`.
+
+### 7.4 Qué cambia en la matriz de decisión
+
+- **El supuesto no coincidía con la medición.** Se estimaban 30 a 60 s y se midieron 3 a 4 s. El puntaje de A en Disponibilidad se mantiene en 4 (la escala solo da 5 cuando no hay ninguna caída perceptible), pero el argumento ante el comité cambia: la ventana que se acepta como trade-off es de segundos, no de un minuto.
+- **La medición también tiene límites.** Es una maqueta local: en la nube del cliente el tiempo depende del producto que se use (chequeos de salud, tiempo de vida del DNS, configuración del proveedor). La medición no reemplaza la cifra del proveedor; sirve para saber qué preguntarle y para no aceptar un supuesto sin evidencia.
+- **No todo se puede medir así.** La opción B (activo-activo) necesita un almacén de sesión compartido que el caso base no tiene; probarla sería construir esa pieza, y eso ya no es validar sino desarrollar. Que una opción no se pueda validar barato también es información para la matriz.
+
+### 7.5 Aplicarlo al cliente real
+
+1. En su matriz de decisión (`entrega/matriz-decision.md`), identifique el supuesto del que más depende la opción ganadora (un tiempo, una capacidad, un costo).
+2. Si ese supuesto es técnico y se puede reproducir en pequeño, adapte esta prueba de concepto o arme una igual de simple. Si no, anote cómo se validaría (una prueba del proveedor, un piloto, una referencia de otro cliente).
+3. En `entrega/mejora-arquitectura.md`, agregue a la decisión una línea **Supuesto validado** con el valor esperado, el valor medido y si el puntaje cambió.
+
+> La prueba de concepto se ejecuta siempre en el computador del equipo. Nunca se apagan ni se prueban componentes de la infraestructura real del cliente.
+
+---
+
+## 8. Análisis de caso real y panorama tecnológico (opcional)
+
+### 8.1 Caso: la migración tecnológica de TSB Bank (Reino Unido, 2018)
+
+**Qué pasó.** En abril de 2018, el banco británico TSB migró los datos de sus clientes y de sus servicios a una nueva plataforma tecnológica (Proteo4UK), operada por SABIS, la empresa de tecnología del grupo Banco Sabadell, dueño de TSB. La migración se hizo de una sola vez (un "big bang"). Después del cambio, una parte significativa de sus 5,2 millones de clientes tuvo fallas en la banca por internet, la aplicación móvil, el teléfono y las oficinas; algunos problemas duraron hasta diciembre de 2018. TSB pagó 32,7 millones de libras en compensaciones a clientes. En diciembre de 2022, los reguladores financieros británicos (FCA y PRA) multaron a TSB con 48,65 millones de libras en total, porque no organizó ni controló adecuadamente el programa de migración y no gestionó los riesgos operativos de la tercerización con su proveedor de tecnología.
+
+Una revisión independiente encargada por la propia junta directiva de TSB al despacho Slaughter and May (noviembre de 2019) señaló, entre otros puntos, que la nueva plataforma no estaba estable ni completa cuando se aprobó la migración, que las pruebas fueron insuficientes (por ejemplo, se probó solo uno de los dos centros de datos nuevos) y que TSB gestionó a su proveedor "a distancia". TSB declaró públicamente que no estaba de acuerdo con algunos aspectos de ese informe.
+
+**Qué falló, en el lenguaje de este taller.**
+
+| Elemento del taller | Qué falló |
+|---|---|
+| Brecha (Gap) entre AS-IS y TO-BE | La brecha era enorme y se cerró en un solo paso, sin estados intermedios (Plateaus) que permitieran detenerse o volver atrás. |
+| Matriz de decisión | La fecha de migración pesó más que la evidencia de que la plataforma estaba lista: no había un criterio eliminatorio del tipo "si las pruebas no pasan, no se migra". |
+| Tabla de riesgos de la Parte 4 | El riesgo del proveedor (su capacidad para operar la plataforma) no se evaluó con la misma profundidad que el riesgo técnico. |
+| Supuestos | Se aceptó que la plataforma funcionaría en producción con pruebas que no la reproducían completa. Es el mismo error que la sección 7 busca evitar: decidir sobre un supuesto no validado. |
+
+**Preguntas para el análisis.**
+
+1. Si usted fuera el comité de arquitectura de TSB, ¿qué Plateaus intermedios habría pedido entre el sistema anterior y Proteo4UK? (Por ejemplo, migrar primero un grupo pequeño de clientes.)
+2. ¿Qué criterio eliminatorio habría puesto en la matriz de decisión de la fecha de migración?
+3. En la tabla de riesgos de su cliente real, ¿hay un proveedor del que dependa el TO-BE? ¿Cómo sabe que está listo?
+
+**Fuentes.** [FCA, "TSB fined £48.65m for operational resilience failings" (20 de diciembre de 2022)](https://www.fca.org.uk/news/press-releases/tsb-fined-ps4865m-operational-resilience-failings); [TSB, publicación de la revisión independiente de Slaughter and May (noviembre de 2019)](https://www.tsb.co.uk/news-releases/slaughter-and-may/); [Computer Weekly, "TSB programme pulled apart in report on IT meltdown"](https://www.computerweekly.com/news/252474170/TSB-programme-pulled-apart-in-report-on-IT-meltdown).
+
+### 8.2 Panorama tecnológico: cómo se llega del AS-IS al TO-BE
+
+Cada brecha se cierra con una estrategia de cambio, y la estrategia es parte de la decisión tanto como la tecnología. Las "7 R" son una clasificación de estrategias de migración popularizada por los proveedores de nube:
+
+| Estrategia | Qué significa | Conviene cuando | Riesgo principal |
+|---|---|---|---|
+| Rehost ("lift and shift") | Mover el sistema tal como está a otra infraestructura | Hay urgencia (fin de un contrato de centro de datos) y el sistema funciona bien | Se trasladan los mismos problemas a otro lugar |
+| Replatform | Mover con ajustes menores (por ejemplo, base de datos administrada) | Se quiere un beneficio rápido sin rediseñar | Ajustes "menores" que resultan no serlo |
+| Refactor | Rediseñar el sistema para la nueva plataforma | El AS-IS limita al negocio y hay tiempo y equipo | Costo y plazo altos; es el camino de TSB si se hace de una vez |
+| Repurchase | Reemplazar por un producto comercial o SaaS | La capacidad no diferencia al negocio (nómina, correo, CRM estándar) | Dependencia del proveedor y adaptación de los procesos al producto |
+| Retire | Apagar el sistema | Ya nadie lo usa o su función está duplicada | Usuarios o integraciones ocultas que dependían de él |
+| Retain | Dejarlo como está, por ahora | El costo de cambiar supera el beneficio hoy | Que "por ahora" se vuelva permanente |
+| Relocate | Mover la infraestructura completa sin cambiar los sistemas (por ejemplo, entre centros de datos) | Cambios de proveedor o de sede | Ventanas de corte largas |
+
+| Tipo de solución | Ejemplos | Conviene cuando | No conviene cuando |
+|---|---|---|---|
+| Desarrollo propio | Aplicación a la medida | La capacidad diferencia al cliente frente a su competencia | Ya existe un producto que resuelve lo mismo |
+| SaaS | Salesforce, Microsoft 365, SAP SuccessFactors | Procesos estándar del sector | Datos sensibles que la norma no permite alojar en ese proveedor o país (Taller 6) |
+| Low-code | Microsoft Power Apps, Bizagi, OutSystems | Flujos internos sencillos, prototipos rápidos con el negocio | Alta carga, lógica compleja o integración profunda con muchos sistemas |
+| Servicios de IA | APIs de modelos de lenguaje, asistentes integrados en productos existentes | Tareas de lenguaje con supervisión humana (resumir, clasificar, responder preguntas frecuentes) | Decisiones sin revisión humana o con datos personales sin autorización (sección 2.2) |
+
+La estrategia y el tipo de solución son criterios que se pueden agregar a la matriz de decisión de la sección 2.1, y la transición entre AS-IS y TO-BE (de una vez o por etapas) es lo que el Taller 9 convierte en Plan de Implementación.
+
+### 8.3 Aplicarlo al cliente real
+
+1. Busque un caso público y documentado de migración, reemplazo de sistema o adopción tecnológica en el sector del cliente (fallido o exitoso).
+2. Analícelo con la [plantilla de análisis de caso](../plantillas/plantilla_analisis_caso.md) y guárdelo en `entrega/analisis-caso.md`.
+3. En la sección 5 de la plantilla, compare dos estrategias o tipos de solución del panorama anterior para la brecha de mayor prioridad de su matriz de brechas.
+
+---
+
 _Esta guía hace parte del Taller 7 de Opportunities & Solutions — curso Arquitectura Empresarial, Universidad de La Sabana._
